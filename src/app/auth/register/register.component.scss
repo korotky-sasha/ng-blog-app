@@ -1,0 +1,42 @@
+.title {
+  text-align: center;
+}
+
+.error-message {
+  border: 1px solid red;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid darkblue;
+  padding: 10px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+
+  div {
+    padding: 5px;
+  }
+
+  label {
+    display: block;
+    input {
+      float: right;
+      margin-left: 5px;
+    }
+  }
+}
+
+.my-button {
+  background-color: darkgreen;
+  color: white;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+
+  &__disabled {
+    background-color: grey;
+  }
+}

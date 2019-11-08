@@ -1,0 +1,12 @@
+<h1 class="title">Post:</h1>
+<h3><a routerLink="../" class="link">Back to all posts</a></h3> <!--href="posts"-->
+<button (click)="deletePost()">Delete post</button>
+<div>
+  <div class="post" *ngIf="post$ | async as post">
+    <h2 class="title">{{post.title}}</h2> <!--href="posts/{{post._id}}"-->
+    <h3>{{post.author}}</h3>
+    <p>{{post.content}}</p>
+    <img src="{{post.image}}" alt = "Some image should be here">
+    <p>{{post.description}}</p>
+  </div>
+</div>
