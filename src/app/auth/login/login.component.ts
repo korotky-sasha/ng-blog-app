@@ -22,16 +22,13 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    console.log('Submitted', this.userEmail, this.userPassword);
     const user = {
       email: this.userEmail,
       password: this.userPassword
     };
     this.authService.loginUser(user).subscribe(value => {
-      console.log(value);
       // @ts-ignore
       if (value && value.token) {
-        console.log('token:', this.authService.getToken());
         // noinspection JSIgnoredPromiseFromCall
         this.router.navigate(['/posts']);
       }

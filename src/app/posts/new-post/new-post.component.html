@@ -1,12 +1,6 @@
-<h1 class="title">Post:</h1>
-<h3><a routerLink="../" class="link">Back to all posts</a></h3>
-<button (click)="deletePost()">Delete post</button>
-<button (click)="editPost()" *ngIf="isLogin">Edit post</button>
-<button (click)="router.navigate(['/posts/new'])" *ngIf="isLogin">Create new post</button>
-<div *ngIf="isUnauthorized" class="error-message">
-  You should be authorized to delete post.
-</div>
-<div *ngIf="isEdit">
+<div>
+  <h2 class="title">Create a new post</h2>
+  <h3><a routerLink="../" class="link">Back to all posts</a></h3>
   <form>
     <div class="form-container">
       <div>
@@ -80,23 +74,14 @@
         </div>
       </div>
       <button
-        type = "submit" (click)="updatePost()" [disabled]="postTitle.invalid || postAuthor.invalid || postContent.invalid
+        type = "submit" (click)="addPost()" [disabled]="postTitle.invalid || postAuthor.invalid || postContent.invalid
         || postImage.invalid || postDescription.invalid"
         class = "my-button"  [class.my-button__disabled] = "postTitle.invalid || postAuthor.invalid
         || postContent.invalid || postImage.invalid || postDescription.invalid"
       >
-        Edit post
+        Add post
       </button>
-      <button type = 'button' (click)="isEdit = false" class="my-button-cancel">Cancel</button>
+<!--      <button (click)="isCreate = isEdit = false" class="my-button-cancel">Cancel</button>-->
     </div>
   </form>
-</div>
-<div>
-  <div class="post" *ngIf="post$ | async as post">
-    <h2 class="title">{{post.title}}</h2>
-    <h3>{{post.author}}</h3>
-    <p>{{post.content}}</p>
-    <img src="{{post.image}}" alt = "Some image should be here">
-    <p>{{post.description}}</p>
-  </div>
 </div>

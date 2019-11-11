@@ -22,10 +22,6 @@ export class AppComponent implements OnInit {
     this.isLogin$.subscribe( value => {
       this.isLogin = value;
     });
-
-    window.addEventListener('storage', ev => {
-      console.log('Event fired', ev);
-    }, false);
   }
 
   logout() {

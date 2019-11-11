@@ -25,7 +25,7 @@ export class AuthService {
     return this.http.post<User>(`//localhost:3000/api/auth/login`, user).pipe(
       tap(value => {
         // @ts-ignore
-       if (value.token) {this.setSession(value.token); } else { console.log('fail'); }
+       if (value.token) {this.setSession(value.token); } else { console.log('Failed to post user'); }
       }),
       shareReplay()
     );
@@ -36,7 +36,6 @@ export class AuthService {
   }
 
   getToken() {
-    console.log(localStorage.getItem('token'));
     return localStorage.getItem('token');
   }
 

@@ -1,26 +1,13 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-interface Post {
-  _id: string;
-  title: string;
-  author: string;
-  content: string;
-  image: string;
-  description: string;
-}
+import { Post } from './models/post';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
-  token: string;
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
 
   constructor(
     private http: HttpClient
@@ -35,7 +22,14 @@ export class PostsService {
   }
 
   deletePost(id): Observable<Post> {
-    this.httpOptions.headers.append('Authorization', `Bearer ${this.token}`);
-    return this.http.delete<Post>(`//localhost:3000/api/posts/${id}`, this.httpOptions);
+    return this.http.delete<Post>(`//localhost:3000/api/posts/${id}`);
+  }
+
+  addPost(post): Observable<Post> {
+    return this.http.post<Post>(`//localhost:3000/api/posts`, post);
+  }
+
+  updatePost(id, post): Observable<Post> {
+    return this.http.put<Post>(`//localhost:3000/api/posts/${id}`, post);
   }
 }
