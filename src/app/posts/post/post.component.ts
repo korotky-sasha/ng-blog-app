@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {Observable} from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 import { PostsService } from '../posts.service';
 import { AuthService } from '../../auth/auth.service';
 
 import { Post } from '../models/post';
+import {shareReplay, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-post',
@@ -14,9 +14,10 @@ import { Post } from '../models/post';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
+  id: string;
   post$: Observable<Post>;
-  isUnauthorized = false;
-  isLogin = !!localStorage.getItem('token');
+  // @TODO: normal checking of login state
+  isLogin: boolean = !!localStorage.getItem('token');
   isLogin$ = this.authService.IsAuthenticated;
   isEdit = false;
   newPost = {
@@ -35,37 +36,27 @@ export class PostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.post$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.postsService.getPost(params.get('id')))
-    );
+    this.id = this.route.snapshot.paramMap.get('id');
+
+    this.post$ = this.postsService.getPost(this.id);
 
     this.isLogin$.subscribe( value => {
       this.isLogin = value;
+      console.log(`isLogin value: ${this.isLogin}`);
     });
   }
 
   deletePost() {
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.postsService.deletePost(params.get('id')))
-    ).subscribe(value => {
-        // @ts-ignore
-        if (value && value._id) {
-          // noinspection JSIgnoredPromiseFromCall
-          this.router.navigate(['../']);
-        }
+    this.postsService.deletePost(this.id).subscribe(() => {
+        this.router.navigate(['../']);
       },
       (er) => {
         console.log(er);
         if (er.statusText === 'Unauthorized') {
           console.log(er.statusText);
-          this.isUnauthorized = true;
         }
       });
   }
-
-  /*addPost() {
-    this.postsService.addPost(this.newPost).subscribe(value => console.log(value));
-  }*/
 
   editPost() {
     this.isEdit = true;
@@ -73,13 +64,9 @@ export class PostComponent implements OnInit {
   }
 
   updatePost() {
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>  this.postsService.updatePost(params.get('id'), this.newPost))
-    ).subscribe(value => console.log(value));
+    this.postsService.updatePost(this.id, this.newPost).subscribe(value => console.log(value));
 
-    this.post$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.postsService.getPost(params.get('id')))
-    );
+    this.post$ = this.postsService.getPost(this.id);
 
     this.isEdit = false;
   }

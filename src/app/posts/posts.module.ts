@@ -7,6 +7,7 @@ import { PostsRoutingModule } from './posts-routing.module';
 import { PostsComponent } from './posts/posts.component';
 import { PostComponent } from './post/post.component';
 import { NewPostComponent } from './new-post/new-post.component';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
 
 
 @NgModule({
@@ -14,7 +15,9 @@ import { NewPostComponent } from './new-post/new-post.component';
   imports: [
     CommonModule,
     FormsModule,
-    PostsRoutingModule
+    PostsRoutingModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
 })
 export class PostsModule { }

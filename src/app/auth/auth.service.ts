@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
-import { tap, shareReplay } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import {tap, shareReplay } from 'rxjs/operators';
 
 interface User {
   email: string;
@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   get IsAuthenticated(): Observable<boolean> {
-    return this.isAuthenticated$.asObservable();
+    return this.isAuthenticated$.asObservable(); // .pipe(shareReplay(1))
   }
 
   private setSession(authResult) {

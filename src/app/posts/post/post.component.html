@@ -1,86 +1,42 @@
 <h1 class="title">Post:</h1>
 <h3><a routerLink="../" class="link">Back to all posts</a></h3>
-<button (click)="deletePost()">Delete post</button>
+<button (click)="deletePost()" *ngIf="isLogin">Delete post</button>
 <button (click)="editPost()" *ngIf="isLogin">Edit post</button>
 <button (click)="router.navigate(['/posts/new'])" *ngIf="isLogin">Create new post</button>
-<div *ngIf="isUnauthorized" class="error-message">
-  You should be authorized to delete post.
-</div>
 <div *ngIf="isEdit">
-  <form>
+  <form (ngSubmit)="updatePost()">
     <div class="form-container">
       <div>
-        <label>
-          Post title:
-          <input type = "text" [(ngModel)] = "newPost.title" name = "post-title" required #postTitle = "ngModel">
-        </label>
-        <div *ngIf="postTitle.invalid && (postTitle.dirty || postTitle.touched)"
-             class="error-message">
-
-          <div *ngIf="postTitle.errors.required">
-            Post title is required.
-          </div>
-
-        </div>
+        <mat-form-field>
+          <input matInput placeholder="Post title:" type = "text" [(ngModel)] = "newPost.title" name = "post-title" required #postTitle = "ngModel">
+          <mat-error>Post title is required.</mat-error>
+        </mat-form-field>
       </div>
       <div>
-        <label>
-          Post author:
-          <input type = "text" [(ngModel)] = "newPost.author" name = "post-author" required #postAuthor = "ngModel">
-        </label>
-        <div *ngIf="postAuthor.invalid && (postAuthor.dirty || postAuthor.touched)"
-             class="error-message">
-
-          <div *ngIf="postAuthor.errors.required">
-            Post author is required.
-          </div>
-
-        </div>
+        <mat-form-field>
+          <input matInput placeholder="Post author:" type = "text" [(ngModel)] = "newPost.author" name = "post-author" required #postAuthor = "ngModel">
+          <mat-error>Post author is required.</mat-error>
+        </mat-form-field>
       </div>
       <div>
-        <label>
-          Post content:
-          <textarea [(ngModel)] = "newPost.content" name = "post-content" required #postContent = "ngModel"></textarea>
-        </label>
-        <div *ngIf="postContent.invalid && (postContent.dirty || postContent.touched)"
-             class="error-message">
-
-          <div *ngIf="postContent.errors.required">
-            Post content is required.
-          </div>
-
-        </div>
+        <mat-form-field>
+          <textarea matInput placeholder="Post content:" [(ngModel)] = "newPost.content" name = "post-content" required #postContent = "ngModel"></textarea>
+          <mat-error>Post content is required.</mat-error>
+        </mat-form-field>
       </div>
       <div>
-        <label>
-          Post image:
-          <input type = "text" [(ngModel)] = "newPost.image" name = "post-image" required #postImage = "ngModel">
-        </label>
-        <div *ngIf="postImage.invalid && (postImage.dirty || postImage.touched)"
-             class="error-message">
-
-          <div *ngIf="postImage.errors.required">
-            Post image is required.
-          </div>
-
-        </div>
+        <mat-form-field>
+          <input matInput placeholder="Post image:" type = "text" [(ngModel)] = "newPost.image" name = "post-image" #postImage = "ngModel">
+        </mat-form-field>
       </div>
       <div>
-        <label>
-          Post description:
-          <input type = "text" [(ngModel)] = "newPost.description" name = "post-description" required #postDescription = "ngModel">
-        </label>
-        <div *ngIf="postDescription.invalid && (postDescription.dirty || postDescription.touched)"
-             class="error-message">
-
-          <div *ngIf="postDescription.errors.required">
-            Post description is required.
-          </div>
-
-        </div>
+        <mat-form-field>
+          <input matInput placeholder="Post description:" type = "text" [(ngModel)] = "newPost.description" name = "post-description" required #postDescription = "ngModel">
+          <mat-error>Post description is required.</mat-error>
+        </mat-form-field>
       </div>
       <button
-        type = "submit" (click)="updatePost()" [disabled]="postTitle.invalid || postAuthor.invalid || postContent.invalid
+        type = "submit" [disabled]="postTitle.invalid || postAuthor.invalid || postContent.invalid
         || postImage.invalid || postDescription.invalid"
         class = "my-button"  [class.my-button__disabled] = "postTitle.invalid || postAuthor.invalid
         || postContent.invalid || postImage.invalid || postDescription.invalid"
