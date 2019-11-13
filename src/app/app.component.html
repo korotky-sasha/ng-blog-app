@@ -1,4 +1,6 @@
 <h1>Ng-blog-app</h1>
-<button (click)="logout()" *ngIf="isLogin">Logout</button>
-<button *ngIf="!isLogin" (click)="login()">Login</button>
+<a mat-raised-button color="primary" routerLink="/posts" routerLinkActive="link-active">Posts</a>
+<button mat-raised-button color="primary" (click)="logout()" *ngIf="isLogin">Logout</button>
+<a mat-raised-button color="primary" *ngIf="!isLogin" routerLink="/login" routerLinkActive="link-active">Login</a>
+<a mat-raised-button color="primary" *ngIf="!isLogin" routerLink="/register" routerLinkActive="link-active">Register</a>
 <router-outlet></router-outlet>

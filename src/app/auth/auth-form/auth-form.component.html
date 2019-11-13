@@ -1,0 +1,13 @@
+<form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+  <div class="form-container">
+    <mat-form-field>
+      <input matInput placeholder="email:" type = "text" formControlName="email" required>
+      <mat-error>Email is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field hintLabel="Min 6 characters">
+      <input matInput placeholder="password:" type = "password" formControlName="password" required minlength="6">
+      <mat-error>Password with at least 6 characters is required.</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="authForm.invalid">{{buttonText}}</button>
+  </div>
+</form>

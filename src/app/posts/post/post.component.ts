@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { PostsService } from '../posts.service';
 import { AuthService } from '../../auth/auth.service';
 
 import { Post } from '../models/post';
-import {shareReplay, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-post',
@@ -20,19 +19,12 @@ export class PostComponent implements OnInit {
   isLogin: boolean = !!localStorage.getItem('token');
   isLogin$ = this.authService.IsAuthenticated;
   isEdit = false;
-  newPost = {
-    title: '',
-    author: '',
-    content: '',
-    image: '',
-    description: ''
-  };
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private postsService: PostsService,
-    public authService: AuthService
+    public authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -60,14 +52,11 @@ export class PostComponent implements OnInit {
 
   editPost() {
     this.isEdit = true;
-    this.post$.subscribe( value => this.newPost = value);
   }
 
-  updatePost() {
-    this.postsService.updatePost(this.id, this.newPost).subscribe(value => console.log(value));
-
+  updatePost(event) {
+    this.postsService.updatePost(this.id, event).subscribe();
     this.post$ = this.postsService.getPost(this.id);
-
     this.isEdit = false;
   }
 }

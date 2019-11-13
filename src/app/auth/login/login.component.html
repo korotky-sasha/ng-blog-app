@@ -1,43 +1,6 @@
 <h2 class="title">Login</h2>
-<form>
-  <div class="form-container">
-    <div>
-      <label>
-        Email:
-        <input type = "email" [(ngModel)] = "userEmail" name = "email" required #email = "ngModel">
-      </label>
-      <div *ngIf="email.invalid && (email.dirty || email.touched)"
-           class="error-message">
-
-        <div *ngIf="email.errors.required">
-          Email is required.
-        </div>
-
-      </div>
-    </div>
-    <div>
-      <label>
-        Password:
-        <input type = "password" [(ngModel)] = "userPassword" name = "password" required minlength = "6" #password = "ngModel">
-      </label>
-      <div *ngIf="password.invalid && (password.dirty || password.touched)"
-           class="error-message">
-
-        <div *ngIf="password.errors.required">
-          Password is required.
-        </div>
-        <div *ngIf="password.errors.minlength">
-          Password must be at least 6 characters long.
-        </div>
-
-      </div>
-    </div>
-    <div *ngIf="isUnauthorized" class="error-message">
-      Wrong email or password.
-    </div>
-    <button type = "submit" (click)="loginUser()" [disabled]="email.invalid || password.invalid" class = "my-button"  [class.my-button__disabled] = "email.invalid || password.invalid"> <!--class = "disabled"-->
-      Log in
-    </button>
-    <p>Don`t have an account? <a routerLink = "../register">Register</a></p>
-  </div>
-</form>
+<app-auth-form buttonText="Login" (emitFormValue)="loginUser($event)"></app-auth-form>
+<div *ngIf="isUnauthorized" class="error-message">
+  Wrong email or password.
+</div>
+<p class="title">Don`t have an account? <a routerLink = "../register">Register</a></p>

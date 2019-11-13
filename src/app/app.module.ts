@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { TokenInterceptor } from './auth/token.interceptor';
@@ -20,8 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AuthModule.forRoot(),
     PostsModule,
     HttpClientModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
+    MatButtonModule,
+    BrowserAnimationsModule,
+    AppRoutingModule
   ],
   providers: [
     {

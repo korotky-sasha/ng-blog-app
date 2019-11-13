@@ -9,8 +9,6 @@ import {AuthService} from '../auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  userEmail: string;
-  userPassword: string;
   isUnauthorized = false;
 
   constructor(
@@ -21,24 +19,20 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  loginUser() {
-    const user = {
-      email: this.userEmail,
-      password: this.userPassword
-    };
-    this.authService.loginUser(user).subscribe(value => {
-      // @ts-ignore
-      if (value && value.token) {
-        // noinspection JSIgnoredPromiseFromCall
-        this.router.navigate(['/posts']);
-      }
-    },
-    (er) => {
-      console.log(er);
-      if (er.statusText === 'Unauthorized') {
-        console.log(er.statusText);
-        this.isUnauthorized = true;
-      }
-    });
+  loginUser(event) {
+    this.authService.loginUser(event).subscribe(value => {
+        // @ts-ignore
+        if (value && value.token) {
+          // noinspection JSIgnoredPromiseFromCall
+          this.router.navigate(['/posts']);
+        }
+      },
+      (er) => {
+        console.log(er);
+        if (er.statusText === 'Unauthorized') {
+          console.log(er.statusText);
+          this.isUnauthorized = true;
+        }
+      });
   }
 }

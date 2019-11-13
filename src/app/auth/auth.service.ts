@@ -32,7 +32,13 @@ export class AuthService {
   }
 
   addUser(user: User): Observable<object> {
-    return this.http.post<User>(`//localhost:3000/api/auth/register`, user);
+    return this.http.post<User>(`//localhost:3000/api/auth/register`, user).pipe(
+      tap(value => {
+        // @ts-ignore
+        if (value.token) {this.setSession(value.token); } else { console.log('Failed to post user'); }
+      }),
+      shareReplay()
+    );
   }
 
   getToken() {

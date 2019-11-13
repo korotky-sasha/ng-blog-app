@@ -25,21 +25,8 @@
   margin-left: auto;
   margin-right: auto;
 
-  div {
-    padding: 5px;
-  }
-
-  label {
-    display: block;
-    input {
-      float: right;
-      width: 100%;
-      margin-left: 5px;
-    }
-    textarea {
-      min-height: 100px;
-      width: 100%;
-    }
+  * {
+    width: 100%;
   }
 }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 import {AuthService} from '../auth.service';
 
@@ -8,22 +9,28 @@ import {AuthService} from '../auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  userEmail: string;
-  userPassword: string;
 
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
   }
 
-  addUser() {
-    console.log('Submitted', this.userEmail, this.userPassword);
-    const user = {
-      email: this.userEmail,
-      password: this.userPassword
-    };
-    this.authService.addUser(user).subscribe();
+  addUser(event) {
+    this.authService.addUser(event).subscribe(value => {
+        // @ts-ignore
+        if (value && value.token) {
+          // noinspection JSIgnoredPromiseFromCall
+          this.router.navigate(['/posts']);
+        }
+      },
+      (er) => {
+        console.log(er);
+        if (er.statusText === 'Failed to add user') {
+          console.log(er.statusText);
+        }
+      });
   }
 }
