@@ -9,7 +9,7 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'ng-blog-app';
-  isLogin = !!localStorage.getItem('token');
+  isLogin: boolean;
   isLogin$ = this.authService.IsAuthenticated;
 
   constructor(
@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
     this.isLogin$.subscribe( value => {
       this.isLogin = value;
     });
+    this.authService.setup();
   }
 
   logout() {

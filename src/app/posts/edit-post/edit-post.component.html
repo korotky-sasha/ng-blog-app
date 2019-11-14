@@ -1,0 +1,6 @@
+<h2 class="title">Edit post:</h2>
+<h3><a mat-raised-button color="primary" routerLink="../.." class="link">Back to all posts</a></h3>
+<div class="form-container">
+  <button mat-raised-button color="primary" type = 'button' (click)="cancel()" class="my-button-cancel">Cancel</button>
+  <app-post-form [initialPost$]="post$" (emitFormValue)="updatePost($event)"></app-post-form>
+</div>

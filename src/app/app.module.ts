@@ -1,16 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
-import { TokenInterceptor } from './auth/token.interceptor';
+import { httpInterceptorProviders } from './http-interceptors';
 
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// @TODO: add different route guards(CanLoad, CanDeactivate...)
 
 @NgModule({
   declarations: [
@@ -18,19 +20,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatToolbarModule,
     AuthModule.forRoot(),
     PostsModule,
-    HttpClientModule,
-    MatButtonModule,
-    BrowserAnimationsModule,
     AppRoutingModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

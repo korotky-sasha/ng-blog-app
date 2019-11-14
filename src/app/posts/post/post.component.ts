@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 
-import { PostsService } from '../posts.service';
+import { PostsService } from '../services/posts.service';
 import { AuthService } from '../../auth/auth.service';
 
 import { Post } from '../models/post';
@@ -14,11 +13,9 @@ import { Post } from '../models/post';
 })
 export class PostComponent implements OnInit {
   id: string;
-  post$: Observable<Post>;
-  // @TODO: normal checking of login state
-  isLogin: boolean = !!localStorage.getItem('token');
+  post: Post;
+  isLogin: boolean;
   isLogin$ = this.authService.IsAuthenticated;
-  isEdit = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,11 +27,12 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
 
-    this.post$ = this.postsService.getPost(this.id);
+    this.route.data.subscribe( (data: {post: Post}) => {
+      this.post = data.post;
+    });
 
     this.isLogin$.subscribe( value => {
       this.isLogin = value;
-      console.log(`isLogin value: ${this.isLogin}`);
     });
   }
 
@@ -48,15 +46,5 @@ export class PostComponent implements OnInit {
           console.log(er.statusText);
         }
       });
-  }
-
-  editPost() {
-    this.isEdit = true;
-  }
-
-  updatePost(event) {
-    this.postsService.updatePost(this.id, event).subscribe();
-    this.post$ = this.postsService.getPost(this.id);
-    this.isEdit = false;
   }
 }

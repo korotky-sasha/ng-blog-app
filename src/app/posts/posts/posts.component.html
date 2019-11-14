@@ -1,11 +1,21 @@
 <h1 class="title">Posts:</h1>
 <button mat-raised-button color="primary" (click)="router.navigate(['/posts/new'])" *ngIf="isLogin">Create new post</button>
-<div>
-  <div *ngFor = "let post of posts" class="post">
-    <h2 class="title"><a routerLink="{{post._id}}" class="link">{{post.title}}</a></h2>
-    <h3>{{post.author}}</h3>
-    <p>{{post.content}}</p>
-    <img src="{{post.image}}" alt = "Some image should be here">
-    <p>{{post.description}}</p>
-  </div>
+<div *ngFor = "let post of posts">
+  <mat-card class="post">
+    <mat-card-header>
+      <mat-card-title>
+        <h2><a routerLink="{{post._id}}" class="link title">{{post.title}}</a></h2>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <h3>{{post.author}}</h3>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{post.content}}</p>
+    </mat-card-content>
+    <img mat-card-image src="{{post.image}}" alt = "Some image should be here">
+    <mat-card-footer>
+      <p>{{post.description}}</p>
+    </mat-card-footer>
+  </mat-card>
 </div>

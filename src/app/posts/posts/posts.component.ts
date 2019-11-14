@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { PostsService } from '../posts.service';
+import { PostsService } from '../services/posts.service';
 import { AuthService } from '../../auth/auth.service';
 
 import { Post } from '../models/post';
@@ -18,13 +18,14 @@ export class PostsComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private postsService: PostsService,
     private authService: AuthService
   ) { }
 
   ngOnInit() {
-    this.postsService.getPosts().subscribe(value => {
-      this.posts = value;
+    this.route.data.subscribe( (data: {posts: Post[]}) => {
+      this.posts = data.posts;
     });
 
     this.isLogin$.subscribe( value => {

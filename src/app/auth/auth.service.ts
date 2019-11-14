@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, ReplaySubject } from 'rxjs';
 import {tap, shareReplay } from 'rxjs/operators';
 
 interface User {
@@ -18,11 +18,11 @@ export class AuthService {
   constructor(
     private http: HttpClient
   ) {
-    this.isAuthenticated$ = new Subject();
+    this.isAuthenticated$ = new ReplaySubject(1);
   }
 
   loginUser(user: User): Observable<object> {
-    return this.http.post<User>(`//localhost:3000/api/auth/login`, user).pipe(
+    return this.http.post<User>(`/api/auth/login`, user).pipe(
       tap(value => {
         // @ts-ignore
        if (value.token) {this.setSession(value.token); } else { console.log('Failed to post user'); }
@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   addUser(user: User): Observable<object> {
-    return this.http.post<User>(`//localhost:3000/api/auth/register`, user).pipe(
+    return this.http.post<User>(`/api/auth/register`, user).pipe(
       tap(value => {
         // @ts-ignore
         if (value.token) {this.setSession(value.token); } else { console.log('Failed to post user'); }
@@ -50,8 +50,12 @@ export class AuthService {
     this.isAuthenticated$.next(false);
   }
 
+  setup() {
+    this.isAuthenticated$.next(!!localStorage.getItem('token'));
+  }
+
   get IsAuthenticated(): Observable<boolean> {
-    return this.isAuthenticated$.asObservable(); // .pipe(shareReplay(1))
+    return this.isAuthenticated$.asObservable();
   }
 
   private setSession(authResult) {
