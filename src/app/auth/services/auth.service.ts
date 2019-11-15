@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   loginUser(user: User): Observable<void> {
-    return this.http.post<User>(`/api/auth/login`, user)
+    return this.http.post<User>(`/auth/login`, user)
       .pipe(
         pluck('token'),
         map(token => this.setSession(token, user.email))
@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   addUser(user: User): Observable<void> {
-    return this.http.post<User>(`/api/auth/register`, user)
+    return this.http.post<User>(`/auth/register`, user)
       .pipe(
         pluck('token'),
         map(token => this.setSession(token, user.email))

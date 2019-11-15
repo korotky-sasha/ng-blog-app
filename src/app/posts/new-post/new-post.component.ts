@@ -9,7 +9,6 @@ import { Post } from '../../shared/models/post';
 import { PostsService } from '../services/posts.service';
 import { AuthService } from '../../auth/services/auth.service';
 
-
 @Component({
   selector: 'app-new-post',
   templateUrl: './new-post.component.html',

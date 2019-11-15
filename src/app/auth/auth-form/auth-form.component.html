@@ -1,7 +1,7 @@
 <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
   <div class="form-container">
     <mat-form-field>
-      <input matInput placeholder="email:" type = "text" formControlName="email" required>
+      <input matInput placeholder="email:" type = "email" formControlName="email" email required>
       <mat-error>Email is required.</mat-error>
     </mat-form-field>
     <mat-form-field hintLabel="Min 6 characters">

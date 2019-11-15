@@ -14,22 +14,22 @@ export class PostsService {
   ) { }
 
   getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`/api/posts` );
+    return this.http.get<Post[]>(`/posts` );
   }
 
   getPost(id): Observable<Post> {
-    return this.http.get<Post>(`/api/posts/${id}` );
+    return this.http.get<Post>(`/posts/${id}` );
   }
 
   deletePost(id): Observable<Post> {
-    return this.http.delete<Post>(`/api/posts/${id}`);
+    return this.http.delete<Post>(`/posts/${id}`);
   }
 
   addPost(post): Observable<Post> {
-    return this.http.post<Post>(`/api/posts`, post);
+    return this.http.post<Post>(`/posts`, post);
   }
 
   updatePost(id, post): Observable<Post> {
-    return this.http.put<Post>(`/api/posts/${id}`, post);
+    return this.http.put<Post>(`/posts/${id}`, post);
   }
 }
