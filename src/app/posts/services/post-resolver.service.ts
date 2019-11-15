@@ -9,7 +9,7 @@ import { Observable, of, EMPTY } from 'rxjs';
 import { mergeMap, take, catchError } from 'rxjs/operators';
 
 import { PostsService } from './posts.service';
-import { Post } from '../models/post';
+import { Post } from '../../shared/models/post';
 
 @Injectable({
   providedIn: 'root',

@@ -1,31 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
-import {AuthService} from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  isUnauthorized = false;
+export class LoginComponent {
+  isUnauthorized: boolean;
 
   constructor(
     public authService: AuthService,
     private router: Router
   ) { }
 
-  ngOnInit() {
-  }
-
-  loginUser(event) {
-    this.authService.loginUser(event).subscribe(value => {
-        // @ts-ignore
-        if (value && value.token) {
-          // noinspection JSIgnoredPromiseFromCall
-          this.router.navigate(['/posts']);
-        }
+  loginUser(user) {
+    this.authService.loginUser(user).subscribe(() => {
+        this.router.navigate(['/posts']);
       },
       (er) => {
         console.log(er);

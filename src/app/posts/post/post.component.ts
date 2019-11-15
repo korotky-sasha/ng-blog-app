@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { PostsService } from '../services/posts.service';
-import { AuthService } from '../../auth/auth.service';
+import { Observable } from 'rxjs';
 
-import { Post } from '../models/post';
+import { PostsService } from '../services/posts.service';
+import { AuthService } from '../../auth/services/auth.service';
+import { Post } from '../../shared/models/post';
 
 @Component({
   selector: 'app-post',
@@ -12,39 +13,33 @@ import { Post } from '../models/post';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
-  id: string;
   post: Post;
-  isLogin: boolean;
-  isLogin$ = this.authService.IsAuthenticated;
+  id: string;
+  isLogin$: Observable<boolean>;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private postsService: PostsService,
-    public authService: AuthService,
-  ) { }
+    private authService: AuthService,
+  ) {
+    this.isLogin$ = this.authService.IsAuthenticated;
+  }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.params.id;
 
-    this.route.data.subscribe( (data: {post: Post}) => {
-      this.post = data.post;
-    });
-
-    this.isLogin$.subscribe( value => {
-      this.isLogin = value;
-    });
+    const { post } = this.route.snapshot.data;
+    if (post) {
+      this.post = post;
+    }
   }
 
   deletePost() {
-    this.postsService.deletePost(this.id).subscribe(() => {
-        this.router.navigate(['../']);
-      },
-      (er) => {
-        console.log(er);
-        if (er.statusText === 'Unauthorized') {
-          console.log(er.statusText);
-        }
-      });
+    this.postsService.deletePost(this.id)
+      .subscribe(
+        () => this.router.navigate(['../']),
+        (er) => console.log(er)
+      );
   }
 }

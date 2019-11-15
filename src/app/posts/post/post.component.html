@@ -1,7 +1,9 @@
 <h3><a mat-raised-button color="primary" routerLink="../" class="link">Back to all posts</a></h3>
-<button mat-raised-button color="primary" (click)="deletePost()" *ngIf="isLogin">Delete post</button>
-<a mat-raised-button color="primary" routerLink="../edit/{{id}}" *ngIf="isLogin">Edit post</a>
-<a mat-raised-button color="primary" routerLink="../new" *ngIf="isLogin">Create new post</a>
+<ng-container *ngIf="isLogin$ | async">
+  <button mat-raised-button color="primary" (click)="deletePost()">Delete post</button>
+  <a mat-raised-button color="primary" [routerLink]="['../edit', id]">Edit post</a>
+  <a mat-raised-button color="primary" routerLink="../new">Create new post</a>
+</ng-container>
 <div>
   <mat-card class="post" *ngIf="post">
     <mat-card-header>
@@ -15,7 +17,7 @@
     <mat-card-content>
       <p>{{post.content}}</p>
     </mat-card-content>
-    <img mat-card-image src="{{post.image}}" alt = "Some image should be here">
+    <img mat-card-image [src]="post.image" alt = "Some image should be here">
     <mat-card-footer>
       <p>{{post.description}}</p>
     </mat-card-footer>

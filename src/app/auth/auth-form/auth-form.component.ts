@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { FormBuilder } from '@angular/forms';
   templateUrl: './auth-form.component.html',
   styleUrls: ['./auth-form.component.scss']
 })
-export class AuthFormComponent implements OnInit {
+export class AuthFormComponent {
   @Input() buttonText = 'Submit';
 
   @Output() emitFormValue = new EventEmitter<object>();
@@ -19,9 +19,6 @@ export class AuthFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder
   ) { }
-
-  ngOnInit() {
-  }
 
   onSubmit() {
     this.emitFormValue.emit(this.authForm.value);

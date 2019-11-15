@@ -1,8 +1,7 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import {Observable} from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { NewPost } from '../models/new-post';
+import { Post } from '../../shared/models/post';
 
 @Component({
   selector: 'app-post-form',
@@ -10,40 +9,44 @@ import { NewPost } from '../models/new-post';
   styleUrls: ['./post-form.component.scss']
 })
 export class PostFormComponent implements OnInit {
-  @Input() initialPost$?: Observable<NewPost>;
+  @Input() post: Post;
 
-  @Output() emitFormValue = new EventEmitter<NewPost>();
+  @Output() emitFormValue = new EventEmitter<Post>();
 
-  initialPost: NewPost;
+  @Output() emitFormChanged = new EventEmitter<boolean>();
+
   submitButtonText = 'Add post';
 
-  postForm = this.formBuilder.group({
-    title: [''],
-    author: [''],
-    content: [''],
-    image: [''],
-    description: ['']
-  });
+  form: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
-    if (this.initialPost$) {
-      this.initialPost$.subscribe(value => {
-        this.initialPost = value;
-        this.postForm.get('title').setValue(this.initialPost.title);
-        this.postForm.get('author').setValue(this.initialPost.author);
-        this.postForm.get('content').setValue(this.initialPost.content);
-        this.postForm.get('image').setValue(this.initialPost.image);
-        this.postForm.get('description').setValue(this.initialPost.description);
-      });
-      this.submitButtonText = 'Update post';
-    }
+    this.buildForm();
   }
 
   onSubmit() {
-    this.emitFormValue.emit(this.postForm.value);
+    this.emitFormValue.emit(this.form.value);
+  }
+
+  onChange() {
+    this.emitFormChanged.emit(true);
+  }
+
+  private buildForm(): void {
+    this.form = this.formBuilder.group({
+      title: [''],
+      author: [''],
+      content: [''],
+      image: [''],
+      description: ['']
+    });
+
+    if (this.post) {
+      this.form.patchValue(this.post);
+      this.submitButtonText = 'Update post';
+    }
   }
 }

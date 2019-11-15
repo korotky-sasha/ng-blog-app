@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { PostsService } from '../services/posts.service';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 
-import { Post } from '../models/post';
+import { Post } from '../../shared/models/post';
 
 @Component({
   selector: 'app-posts',
