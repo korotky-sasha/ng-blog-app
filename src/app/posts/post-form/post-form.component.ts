@@ -9,7 +9,7 @@ import { Post } from '../../shared/models/post';
   styleUrls: ['./post-form.component.scss']
 })
 export class PostFormComponent implements OnInit {
-  @Input() post: Post;
+  @Input() post: Post = new Post();
 
   @Output() emitFormValue = new EventEmitter<Post>();
 
@@ -21,7 +21,7 @@ export class PostFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.buildForm();
@@ -44,9 +44,7 @@ export class PostFormComponent implements OnInit {
       description: ['']
     });
 
-    if (this.post) {
-      this.form.patchValue(this.post);
-      this.submitButtonText = 'Update post';
-    }
+    this.form.patchValue(this.post);
+    this.submitButtonText = 'Update post';
   }
 }

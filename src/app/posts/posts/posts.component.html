@@ -1,5 +1,13 @@
 <h1 class="title">Posts:</h1>
-<button mat-raised-button color="primary" (click)="router.navigate(['/posts/new'])" *ngIf="isLogin">Create new post</button>
+<button
+  mat-raised-button
+  color="primary"
+  (click)="router.navigate(['/posts/new'])"
+  *ngIf="isLogin$ | async"
+  class="button"
+>
+  Create new post
+</button>
 <div *ngFor = "let post of posts">
   <mat-card class="post">
     <mat-card-header>

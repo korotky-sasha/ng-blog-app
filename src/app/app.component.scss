@@ -1,5 +1,36 @@
+.app-title {
+  color: #3ab117;
+  text-transform: uppercase;
+}
+
+.link {
+  text-decoration: none;
+  color: #c9ced1;
+  padding: 10px;
+}
+
 .link-active {
-  background-color: darkgreen;
+  background-color: #f9f9f9;
+  border-left: 2px solid #3ab117;
+}
+
+.button {
+  color: #f9f9f9;
+  background-color: #3ab117;
+  border-radius: 18px;
+}
+
+.icon {
+  color: rgba(0,0,0,.87);
+  margin-right: 15px;
+  width: 30px;
+}
+
+.icon-middle {
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .fill-remaining-space {
@@ -7,6 +38,22 @@
 }
 
 .header-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   background-image: url("src/img/avatar.jpeg");
   background-size: cover;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.toolbar {
+  min-height: 64px;
+  height: auto;
+  background-color: #fafafa;
+}
+
+.sidenav-link-group {
+  display: flex;
+  flex-direction: column;
 }

@@ -1,25 +1,25 @@
-<h3><a mat-raised-button color="primary" routerLink="../" class="link">Back to all posts</a></h3>
+<h3><a mat-raised-button color="primary" routerLink="../" class="link button">Back to all posts</a></h3>
 <ng-container *ngIf="isLogin$ | async">
-  <button mat-raised-button color="primary" (click)="deletePost()">Delete post</button>
-  <a mat-raised-button color="primary" [routerLink]="['../edit', id]">Edit post</a>
-  <a mat-raised-button color="primary" routerLink="../new">Create new post</a>
+  <button mat-raised-button color="primary" (click)="deletePost()" class="button">Delete post</button>
+  <a mat-raised-button color="primary" [routerLink]="['../edit', id]" class="button">Edit post</a>
+  <a mat-raised-button color="primary" routerLink="../new" class="button">Create new post</a>
 </ng-container>
 <div>
   <mat-card class="post" *ngIf="post">
     <mat-card-header>
       <mat-card-title>
-        <h2>{{post.title}}</h2>
+        <h2 class="title">{{post.title}}</h2>
       </mat-card-title>
       <mat-card-subtitle>
         <h3>{{post.author}}</h3>
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <p>{{post.content}}</p>
+      <p class="content">{{post.content}}</p>
     </mat-card-content>
     <img mat-card-image [src]="post.image" alt = "Some image should be here">
     <mat-card-footer>
-      <p>{{post.description}}</p>
+      <p class="content">{{post.description}}</p>
     </mat-card-footer>
   </mat-card>
 </div>

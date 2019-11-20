@@ -33,7 +33,7 @@
 }
 
 .my-button {
-  background-color: darkgreen;
+  background-color: #3ab117;
   color: white;
   width: 50%;
   margin-left: auto;
@@ -41,6 +41,6 @@
   margin-top: 10px;
 
   &__disabled {
-    background-color: grey;
+    background-color: #c9ced1;
   }
 }

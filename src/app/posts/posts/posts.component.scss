@@ -1,13 +1,24 @@
 .post {
   width: 90%;
   margin: 10px auto;
-  background-color: aliceblue;
+  background-color: #fafafa;
 }
 
 .title {
   text-align: center;
+  color: #3ab117;
+}
+
+.title:hover {
+  border-left: 2px solid darkblue;
 }
 
 .link {
   text-decoration: none;
+}
+
+.button {
+  color: #f9f9f9;
+  background-color: #3ab117;
+  border-radius: 18px;
 }

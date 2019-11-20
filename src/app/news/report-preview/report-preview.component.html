@@ -1,0 +1,16 @@
+<div class="report-preview-container">
+  <div style = "width: 35%; margin-top: auto; margin-bottom: auto; margin-right: 16px;">
+    <img [src] = report.image alt = "Some image should be here" style="width: 100%;">
+  </div>
+  <div style="width: 65%;">
+    <div class="header">
+      {{report.timeAgo}}
+    </div>
+    <div class="title multiline-truncation">
+      {{report.title}}
+    </div>
+    <div class="footer">
+      By <span class = "author">{{report.author}}</span>
+    </div>
+  </div>
+</div>

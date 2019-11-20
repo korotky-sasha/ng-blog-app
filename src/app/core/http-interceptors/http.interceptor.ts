@@ -14,9 +14,16 @@ import { environment } from '../../../environments/environment';
 export class BaseUrlInterceptor implements HttpInterceptor {
   constructor() {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const newRequest = request.clone({
-      url: `${environment.baseUrl}${request.url}`
-    });
+    let newRequest;
+    if (request.url.match(/news\w*/)) {
+      newRequest = request.clone({
+        url: `${environment.mockServerUrl}${request.url}`
+      });
+    } else {
+      newRequest = request.clone({
+        url: `${environment.baseUrl}${request.url}`
+      });
+    }
     return next.handle(newRequest);
   }
 }

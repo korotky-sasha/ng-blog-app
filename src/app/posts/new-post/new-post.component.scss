@@ -1,7 +1,7 @@
 .post {
   border: 2px solid;
   padding: 10px;
-  background-color: aliceblue;
+  background-color: #fafafa;
 }
 
 .title {
@@ -26,22 +26,8 @@
   }
 }
 
-.my-button {
-  background-color: darkgreen;
-  color: white;
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-
-  &__disabled {
-    background-color: grey;
-  }
-}
-
-.my-button-cancel {
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
+.button {
+  color: #f9f9f9;
+  background-color: #3ab117;
+  border-radius: 18px;
 }

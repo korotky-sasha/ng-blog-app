@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #80808040;
+}
+
+.header-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-image: url("src/img/avatar.jpeg");
+  background-size: cover;
+}
+
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.author {
+  color: #3ab117;
+}
+
+.content {
+  font-family: Times, "Times", sans-serif;
+  color: #797e84;
+}

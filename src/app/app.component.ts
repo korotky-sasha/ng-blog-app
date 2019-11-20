@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
+import {
+  faCalendarAlt, faNewspaper, faMailBulk, faSuitcaseRolling, faPlay, faHeartbeat, faGraduationCap, faBusinessTime, faLightbulb
+} from '@fortawesome/free-solid-svg-icons';
+
 import { AuthService } from './auth/services/auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -8,7 +13,19 @@ import { AuthService } from './auth/services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  faCalendarAlt = faCalendarAlt;
+  faNewspaper = faNewspaper;
+  faMailBulk = faMailBulk;
+  faSuitcaseRolling = faSuitcaseRolling;
+  faPlay = faPlay;
+  faHeartbeat = faHeartbeat;
+  faGraduationCap = faGraduationCap;
+  faBusinessTime = faBusinessTime;
+  faLightbulb = faLightbulb;
+
   title = 'ng-blog-app';
+  sidenavOpened = true;
+  sidenavToggleText = '<';
   isLogin: boolean;
   isLogin$ = this.authService.IsAuthenticated;
   userEmail: string;
@@ -26,6 +43,11 @@ export class AppComponent implements OnInit {
       this.userEmail = value;
     });
     this.authService.setup();
+  }
+
+  toggleSidenav() {
+    this.sidenavOpened = !this.sidenavOpened;
+    this.sidenavToggleText = this.sidenavOpened ? '<' : '>';
   }
 
   logout() {

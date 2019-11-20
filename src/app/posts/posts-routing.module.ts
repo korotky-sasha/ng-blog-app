@@ -29,7 +29,7 @@ const routes: Routes = [
   {
     path: 'posts/edit/:id',
     component: EditPostComponent,
-    resolve: {post: PostResolverService},
+    resolve: { post: PostResolverService },
     canActivate: [AuthGuard],
     canDeactivate: [AuthGuard]
     },
