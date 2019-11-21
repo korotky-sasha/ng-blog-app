@@ -23,19 +23,19 @@
         <a routerLink="/posts" routerLinkActive="link-active" class="link">
           <div style="display: flex; flex-direction: row;">
             <div class="icon">
-              <fa-icon [icon]="faMailBulk" class="icon-middle"></fa-icon>
+              <fa-icon [icon]="faNewspaper" class="icon-middle"></fa-icon>
             </div>
             <span>Posts</span>
           </div>
         </a>
-        <a routerLink="/news" routerLinkActive="link-active" class="link">
+        <!--<a routerLink="/news" routerLinkActive="link-active" class="link">
           <div style="display: flex; flex-direction: row;">
             <div class="icon">
               <fa-icon [icon]="faNewspaper" class="icon-middle"></fa-icon>
             </div>
             <span>News</span>
           </div>
-        </a>
+        </a>-->
         <a class="link">
           <div style="display: flex; flex-direction: row;">
             <div class="icon">
@@ -98,5 +98,4 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-  <button mat-raised-button (click)="toggleSidenav()" style="width: 10%">{{sidenavToggleText}}</button>
 </div>

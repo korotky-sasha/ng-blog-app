@@ -1,4 +1,4 @@
-<h1 class="title">Posts:</h1>
+<h1 class="title-main">Posts:</h1>
 <button
   mat-raised-button
   color="primary"
@@ -8,22 +8,29 @@
 >
   Create new post
 </button>
-<div *ngFor = "let post of posts">
-  <mat-card class="post">
-    <mat-card-header>
-      <mat-card-title>
-        <h2><a routerLink="{{post._id}}" class="link title">{{post.title}}</a></h2>
-      </mat-card-title>
-      <mat-card-subtitle>
-        <h3>{{post.author}}</h3>
-      </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>{{post.content}}</p>
-    </mat-card-content>
-    <img mat-card-image src="{{post.image}}" alt = "Some image should be here">
-    <mat-card-footer>
-      <p>{{post.description}}</p>
-    </mat-card-footer>
-  </mat-card>
+<div style="display: flex; flex-direction: row">
+  <div style="width: 50%">
+    <div *ngFor = "let post of posts; index as i" (click)="selectPost(i)">
+
+      <div class="post-preview-container">
+        <div style = "width: 35%; margin-top: auto; margin-bottom: auto; margin-right: 16px;">
+          <img [src] = post.image alt = "Some image should be here" style="width: 100%;">
+        </div>
+        <div style="width: 65%;">
+          <div class="header">
+            By <span class = "author">{{post.author}}</span>
+          </div>
+          <div class="title multiline-truncation">
+            {{post.title}}
+          </div>
+          <div class="footer multiline-truncation">
+            {{post.description}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="width: 50%">
+    <app-post [post]="posts[selectedPost]" (deleted)="postDeleted(selectedPost)"></app-post>
+  </div>
 </div>

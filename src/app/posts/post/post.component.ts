@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output,  EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -12,10 +12,12 @@ import { Post } from '../../shared/models/post';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit {
-  post: Post;
-  id: string;
+export class PostComponent {
   isLogin$: Observable<boolean>;
+
+  @Input() post: Post;
+
+  @Output() deleted = new EventEmitter<boolean>();
 
   constructor(
     private route: ActivatedRoute,
@@ -26,19 +28,10 @@ export class PostComponent implements OnInit {
     this.isLogin$ = this.authService.IsAuthenticated;
   }
 
-  ngOnInit() {
-    this.id = this.route.snapshot.params.id;
-
-    const { post } = this.route.snapshot.data;
-    if (post) {
-      this.post = post;
-    }
-  }
-
   deletePost() {
-    this.postsService.deletePost(this.id)
+    this.postsService.deletePost(this.post._id)
       .subscribe(
-        () => this.router.navigate(['../']),
+        () => this.deleted.emit(true),
         (er) => console.log(er)
       );
   }

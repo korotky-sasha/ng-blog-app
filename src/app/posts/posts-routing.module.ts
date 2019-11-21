@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PostsComponent } from './posts/posts.component';
-import { PostComponent } from './post/post.component';
 import { NewPostComponent } from './new-post/new-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 
 import { PostsResolverService } from './services/posts-resolver.service';
 import { PostResolverService } from './services/post-resolver.service';
 import { AuthGuard } from '../auth/guards/auth.guard';
+
 
 const routes: Routes = [
   {
@@ -19,7 +19,8 @@ const routes: Routes = [
   {
     path: 'posts',
     component: PostsComponent,
-    resolve: {posts: PostsResolverService}},
+    resolve: {posts: PostsResolverService}
+  },
   {
     path: 'posts/new',
     component: NewPostComponent,
@@ -34,9 +35,8 @@ const routes: Routes = [
     canDeactivate: [AuthGuard]
     },
   {
-    path: 'posts/:id',
-    component: PostComponent,
-    resolve: {post: PostResolverService}
+    path: '**',
+    redirectTo: 'posts'
   }
 ];
 

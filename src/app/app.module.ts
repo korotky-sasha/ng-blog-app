@@ -11,8 +11,9 @@ import { httpInterceptorProviders } from './core/http-interceptors';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
-import { NewsModule } from './news/news.module';
+// import { NewsModule } from './news/news.module';
 
+// @TODO: remove NewsModule
 
 @NgModule({
   declarations: [
@@ -26,10 +27,10 @@ import { NewsModule } from './news/news.module';
     MatToolbarModule,
     MatCardModule,
     MatSidenavModule,
-    AuthModule.forRoot(),
-    PostsModule,
-    NewsModule,
     FontAwesomeModule,
+    AuthModule.forRoot(),
+    // NewsModule,
+    PostsModule,
     AppRoutingModule
   ],
   providers: [

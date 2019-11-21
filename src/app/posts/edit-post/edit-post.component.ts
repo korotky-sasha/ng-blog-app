@@ -43,12 +43,12 @@ export class EditPostComponent implements OnInit, OnDestroy {
   updatePost(post) {
     this.postsService.updatePost(this.id, post).subscribe( () => {
       this.isChanged = false;
-      this.router.navigate([`posts/${this.id}`]);
+      this.router.navigate(['posts']);
     });
   }
 
   cancel() {
-    this.router.navigate([`posts/${this.id}`]);
+    this.router.navigate(['posts']);
   }
 
   getPost() {

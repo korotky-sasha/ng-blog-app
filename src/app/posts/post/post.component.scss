@@ -4,29 +4,47 @@
   background-color: #fafafa;
 }
 
-.title {
-  text-align: center;
-  color: grey;
+.author {
+  color: #3ab117;
 }
 
 .content {
+  font-family: Times, "Times", sans-serif;
   color: #797e84;
 }
 
-.form-container {
+.description {
+  font-family: Times, "Times", sans-serif;
+  color: #c9ced1;
+  padding-left: 10px;
+  border-left: 1px solid #80808040;
+}
+
+.header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  margin-top: 15px;
+  border-bottom: 1px solid #80808040;
+}
+
+.header-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-image: url("src/img/avatar.jpeg");
+  background-size: cover;
+}
+
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
 }
 
 .button {
+  margin: 0 10px;
   color: #f9f9f9;
   background-color: #3ab117;
   border-radius: 18px;
-}
-
-.button-cancel {
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
 }

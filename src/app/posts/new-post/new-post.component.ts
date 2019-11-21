@@ -37,9 +37,9 @@ export class NewPostComponent implements OnInit, OnDestroy {
   }
 
   addPost(post: Post) {
-    this.postsService.addPost(post).subscribe(value => {
+    this.postsService.addPost(post).subscribe(() => {
       this.isChanged = false;
-      this.router.navigate([`/posts/${value._id}`]);
+      this.router.navigate(['/posts']);
     });
   }
 

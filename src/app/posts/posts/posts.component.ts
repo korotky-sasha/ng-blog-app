@@ -13,8 +13,10 @@ import { Post } from '../../shared/models/post';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss']
 })
+
 export class PostsComponent implements OnInit {
   posts: Post[];
+  selectedPost = 0;
   isLogin$: Observable<boolean>;
 
   constructor(
@@ -32,4 +34,12 @@ export class PostsComponent implements OnInit {
     });
   }
 
+  selectPost(index) {
+    this.selectedPost = index;
+  }
+
+  postDeleted(postIndex) {
+    this.posts.splice(postIndex, 1);
+    this.selectedPost = 0;
+  }
 }

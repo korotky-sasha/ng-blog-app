@@ -45,6 +45,8 @@ export class PostFormComponent implements OnInit {
     });
 
     this.form.patchValue(this.post);
-    this.submitButtonText = 'Update post';
+    if ( this.post.title !== '') {
+      this.submitButtonText = 'Update post';
+    }
   }
 }

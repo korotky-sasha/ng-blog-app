@@ -17,7 +17,7 @@
       <mat-error>Post title is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Post description:" type = "text" formControlName="description" required>
+      <textarea matInput cdkTextareaAutosize placeholder="Post description:" type = "text" formControlName="description" required></textarea>
       <mat-error>Post title is required.</mat-error>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" class="button-submit">{{submitButtonText}}</button>

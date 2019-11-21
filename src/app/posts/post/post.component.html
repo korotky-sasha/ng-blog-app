@@ -1,14 +1,20 @@
-<h3><a mat-raised-button color="primary" routerLink="../" class="link button">Back to all posts</a></h3>
 <ng-container *ngIf="isLogin$ | async">
   <button mat-raised-button color="primary" (click)="deletePost()" class="button">Delete post</button>
-  <a mat-raised-button color="primary" [routerLink]="['../edit', id]" class="button">Edit post</a>
-  <a mat-raised-button color="primary" routerLink="../new" class="button">Create new post</a>
+  <a mat-raised-button color="primary" [routerLink]="['edit', post._id]" class="button">Edit post</a>
 </ng-container>
 <div>
-  <mat-card class="post" *ngIf="post">
+  <div class="header">
+    <div class="header-image"></div>
+    <p style="color: #c9ced1">By <span class = "author">{{post.author}}</span></p>
+  </div>
+  <h1>{{post.title}}</h1>
+  <img [src]="post.image" alt = "New image" class="image">
+  <div class="content">{{post.content}}</div>
+  <div class="description">{{post.description}}</div>
+  <!--<mat-card class="post" *ngIf="post">
     <mat-card-header>
       <mat-card-title>
-        <h2 class="title">{{post.title}}</h2>
+        <h2>{{post.title}}</h2>
       </mat-card-title>
       <mat-card-subtitle>
         <h3>{{post.author}}</h3>
@@ -21,5 +27,5 @@
     <mat-card-footer>
       <p class="content">{{post.description}}</p>
     </mat-card-footer>
-  </mat-card>
+  </mat-card>-->
 </div>
