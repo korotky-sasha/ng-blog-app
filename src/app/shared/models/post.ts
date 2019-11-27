@@ -12,6 +12,7 @@ export class Post {
   content: string;
   image: string;
   description: string;
+  active: boolean;
 
   constructor() {
     this._id = '';

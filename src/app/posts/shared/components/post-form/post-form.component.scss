@@ -1,15 +1,11 @@
-$formShadow: #ddd;
-$background: #4caf50;
-$buttonColor: #f9f9f9;
-
 .form-container {
   display: flex;
   flex-direction: column;
-  width: 90%;
-  max-width: 300px;
+  width: 80%;
+  //max-width: 530px;
   margin: 10px auto;
   border-radius: 15px;
-  box-shadow: 0 1px 8px $formShadow;
+  box-shadow: 0 1px 8px #ddd;
   padding: 25px;
 
   input {
@@ -19,14 +15,18 @@ $buttonColor: #f9f9f9;
   textarea {
     caret-color: unset;
   }
+
+  * {
+    width: 100%;
+  }
 }
 
 .button-submit {
-  width: 40%;
+  width: 40%!important;
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
-  color: $buttonColor;
-  background-color: $background;
+  color: #f9f9f9;
+  background-color: #4caf50;
   border-radius: 18px;
 }

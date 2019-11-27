@@ -1,8 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+
+import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 
 import { Post } from '../../shared/models/post';
 
@@ -21,6 +24,7 @@ export class NewPostComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void>;
   constructor(
     private router: Router,
+    private dialog: MatDialog,
     private postsService: PostsService,
     private authService: AuthService
   ) {
@@ -62,13 +66,13 @@ export class NewPostComponent implements OnInit, OnDestroy {
 
   // noinspection JSUnusedGlobalSymbols
   canDeactivate() {
-    return this.isChanged ? confirm('A you sure you want to leave without saving changes?') : true;
+    return this.isChanged ? this.confirmDialog('A you sure you want to leave without saving changes?') : true;
   }
 
-  // noinspection JSUnusedGlobalSymbols
-  confirm(message?: string): Observable<boolean> {
-    const confirmation = window.confirm(message || 'Is it OK?');
-
-    return of(confirmation);
+  confirmDialog(message?: string): Observable<boolean> {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {message}
+    });
+    return  dialogRef.afterClosed();
   }
 }

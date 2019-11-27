@@ -8,6 +8,6 @@
       <input matInput placeholder="password:" type = "password" formControlName="password" required minlength="6">
       <mat-error>Password with at least 6 characters is required.</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" [disabled]="authForm.invalid">{{buttonText}}</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="authForm.invalid" class="button-submit">{{buttonText}}</button>
   </div>
 </form>

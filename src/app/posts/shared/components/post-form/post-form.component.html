@@ -1,25 +1,31 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" (change)="onChange()">
   <div class="form-container">
-    <mat-form-field>
+    <mat-form-field> <!--#4caf50-->
       <input matInput placeholder="Post title:" type = "text" formControlName="title" required>
       <mat-error>Post title is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="Post author:" type = "text" formControlName="author" required>
-      <mat-error>Post title is required.</mat-error>
+      <mat-error>Post author is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <textarea matInput cdkTextareaAutosize placeholder="Post content:" type = "text" formControlName="content" required></textarea>
-      <mat-error>Post title is required.</mat-error>
+      <mat-error>Post content is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="Post image:" type = "text" formControlName="image">
-      <mat-error>Post title is required.</mat-error>
     </mat-form-field>
+    <div>
+      <p>Image preview</p>
+      <img [src]="form.value.image" alt="Image preview" (error)="invalidImage($event)">
+    </div>
     <mat-form-field>
       <textarea matInput cdkTextareaAutosize placeholder="Post description:" type = "text" formControlName="description" required></textarea>
-      <mat-error>Post title is required.</mat-error>
+      <mat-error>Post description is required.</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" class="button-submit">{{submitButtonText}}</button>
+    <div style="display: flex; flex-direction: row">
+      <a mat-raised-button color="primary" type = 'button' routerLink="../.." class="button-submit">Cancel</a>
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" class="button-submit">{{submitButtonText}}</button>
+    </div>
   </div>
 </form>

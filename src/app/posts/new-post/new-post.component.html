@@ -1,5 +1,4 @@
 <div>
   <h2 class="title">Create a new post</h2>
-  <h3><a mat-raised-button color="primary" routerLink="../" class="link button">Back to all posts</a></h3>
   <app-post-form (emitFormValue)="addPost($event)" (emitFormChanged)="formChanged()"></app-post-form>
 </div>

@@ -1,7 +1,8 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import { Post } from '../../shared/models/post';
+import { IMAGE_PLACEHOLDER } from '../../../../shared/constants/image-placeholder.constant';
+import { Post } from '../../../../shared/models/post';
 
 @Component({
   selector: 'app-post-form',
@@ -37,16 +38,20 @@ export class PostFormComponent implements OnInit {
 
   private buildForm(): void {
     this.form = this.formBuilder.group({
-      title: [''],
-      author: [''],
-      content: [''],
+      title: ['', Validators.required],
+      author: ['', Validators.required],
+      content: ['', Validators.required],
       image: [''],
-      description: ['']
+      description: ['', Validators.required]
     });
 
     this.form.patchValue(this.post);
     if ( this.post.title !== '') {
       this.submitButtonText = 'Update post';
     }
+  }
+
+  invalidImage(event) {
+    event.target.src = IMAGE_PLACEHOLDER;
   }
 }

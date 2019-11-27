@@ -1,46 +1,13 @@
+$red: #ff0000;
+
 .title {
   text-align: center;
 }
 
 .error-message {
   width: fit-content;
-  border: 2px solid red;
+  border: 2px solid $red;
   padding: 10px;
   margin-left: auto;
   margin-right: auto;
-}
-
-.form-container {
-  display: flex;
-  flex-direction: column;
-  border: 2px solid darkblue;
-  padding: 10px;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-
-  div {
-    padding: 5px;
-  }
-
-  label {
-    display: block;
-    input {
-      float: right;
-      margin-left: 5px;
-    }
-  }
-}
-
-.my-button {
-  background-color: #3ab117;
-  color: white;
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-
-  &__disabled {
-    background-color: #c9ced1;
-  }
 }

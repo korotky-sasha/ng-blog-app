@@ -1,43 +1,47 @@
-<div style="background-color: #fafafa; line-height: 1.8">
+<div>
   <mat-toolbar class="toolbar">
     <span class="app-title">Ng-blog-app</span>
     <span class="fill-remaining-space"></span>
     <div *ngIf="userEmail">
-      <div style="display: flex; flex-direction: row; margin-right: 15px; color: #c9ced1;">
-<!--        <img src="assets/img/avatar.jpeg" style="width: 50px; height: 50px; border-radius: 50%;">-->
-        <div class="header-image"></div>
-        <p>
-          {{userEmail}}
-        </p>
+      <div class="avatar-container">
+        <img [src]="avatarSource" alt="avatar" class="header-image">
       </div>
     </div>
-    <button mat-raised-button (click)="logout()" *ngIf="isLogin" class="button">Logout</button>
-    <ng-container *ngIf="!isLogin">
-      <a mat-raised-button routerLink="/login" routerLinkActive="link-active" class="button">Login</a>
-      <a mat-raised-button routerLink="/register" routerLinkActive="link-active" class="button">Register</a>
-    </ng-container>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <fa-icon [icon]="faBars" class="icon-middle"></fa-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <ng-container *ngIf="isLogin">
+        <button mat-menu-item (click)="router.navigate(['/posts/new'])">
+          Create new post
+        </button>
+        <button mat-menu-item (click)="logout()">
+          Logout
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!isLogin">
+        <button mat-menu-item (click)="router.navigate(['/login'])">
+          Login
+        </button>
+        <button mat-menu-item (click)="router.navigate(['/register'])">
+          Register
+        </button>
+      </ng-container>
+    </mat-menu>
   </mat-toolbar>
-  <div style="display: flex; flex-direction: row">
-    <div style="width: 20%; min-width: fit-content">
+  <div class="main-content">
+    <div class="sidenav">
       <div class = "sidenav-link-group">
         <a routerLink="/posts" routerLinkActive="link-active" class="link">
-          <div style="display: flex; flex-direction: row;">
+          <div class="row">
             <div class="icon">
               <fa-icon [icon]="faNewspaper" class="icon-middle"></fa-icon>
             </div>
             <span>Posts</span>
           </div>
         </a>
-        <!--<a routerLink="/news" routerLinkActive="link-active" class="link">
-          <div style="display: flex; flex-direction: row;">
-            <div class="icon">
-              <fa-icon [icon]="faNewspaper" class="icon-middle"></fa-icon>
-            </div>
-            <span>News</span>
-          </div>
-        </a>-->
         <a class="link">
-          <div style="display: flex; flex-direction: row;">
+          <div class="row">
             <div class="icon">
               <fa-icon [icon]="faLightbulb" class="icon-middle"></fa-icon>
             </div>
@@ -45,7 +49,7 @@
           </div>
         </a>
         <a class="link">
-          <div style="display: flex; flex-direction: row;">
+          <div class="row">
             <div class="icon">
               <fa-icon [icon]="faBusinessTime" class="icon-middle"></fa-icon>
             </div>
@@ -53,7 +57,7 @@
           </div>
         </a>
         <a class="link">
-          <div style="display: flex; flex-direction: row;">
+          <div class="row">
             <div class="icon">
               <fa-icon [icon]="faGraduationCap" class="icon-middle"></fa-icon>
             </div>
@@ -61,7 +65,7 @@
           </div>
         </a>
         <a class="link">
-          <div style="display: flex; flex-direction: row;">
+          <div class="row">
             <div class="icon">
               <fa-icon [icon]="faSuitcaseRolling" class="icon-middle"></fa-icon>
             </div>
@@ -69,7 +73,7 @@
           </div>
         </a>
         <a class="link">
-          <div style="display: flex; flex-direction: row;">
+          <div class="row">
             <div class="icon">
               <fa-icon [icon]="faHeartbeat" class="icon-middle"></fa-icon>
             </div>
@@ -77,7 +81,7 @@
           </div>
         </a>
         <a class="link">
-          <div style="display: flex; flex-direction: row;">
+          <div class="row">
             <div class="icon">
               <fa-icon [icon]="faPlay" class="icon-middle"></fa-icon>
             </div>
@@ -85,7 +89,7 @@
           </div>
         </a>
         <a class="link">
-          <div style="display: flex; flex-direction: row;">
+          <div class="row">
             <div class="icon">
               <fa-icon [icon]="faCalendarAlt" class="icon-middle"></fa-icon>
             </div>
@@ -94,7 +98,7 @@
         </a>
       </div>
     </div>
-    <div style="width: 80%">
+    <div class="outlet">
       <router-outlet></router-outlet>
     </div>
   </div>

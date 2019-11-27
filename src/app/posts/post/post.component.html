@@ -1,31 +1,26 @@
-<ng-container *ngIf="isLogin$ | async">
-  <button mat-raised-button color="primary" (click)="deletePost()" class="button">Delete post</button>
-  <a mat-raised-button color="primary" [routerLink]="['edit', post._id]" class="button">Edit post</a>
-</ng-container>
 <div>
   <div class="header">
-    <div class="header-image"></div>
-    <p style="color: #c9ced1">By <span class = "author">{{post.author}}</span></p>
+    <img [src]="avatarSource" alt="avatar" class="header-image">
+    <p class="by-author">By <span class = "author">{{post.author}}</span></p>
+    <ng-container *ngIf="isLogin$ | async">
+      <div class="fill-available"></div>
+      <button mat-raised-button color="primary" (click)="toggleButtonMenu()" class="button button-toggler">
+        <fa-icon [icon]="currentIcon" class="icon-middle"></fa-icon>
+      </button>
+      <div id="buttonMenu" class="button-menu">
+        <button mat-raised-button color="primary" (click)="deletePost()" class="button">
+          <fa-icon [icon]="faTrash" class="icon-middle"></fa-icon>
+        </button>
+        <a mat-raised-button color="primary" [routerLink]="['edit', post._id]" class="button">
+          <fa-icon [icon]="faEdit" class="icon-middle"></fa-icon>
+        </a>
+        <a mat-raised-button color="primary" [routerLink]="['new']" class="button">
+          <fa-icon [icon]="faPlus" class="icon-middle"></fa-icon>
+        </a>
+      </div>
+    </ng-container>
   </div>
-  <h1>{{post.title}}</h1>
-  <img [src]="post.image" alt = "New image" class="image">
+  <h1 class="title">{{post.title}}</h1>
+  <img [src]="post.image" alt = "New image" (error)="invalidImage($event)" class="image">
   <div class="content">{{post.content}}</div>
-  <div class="description">{{post.description}}</div>
-  <!--<mat-card class="post" *ngIf="post">
-    <mat-card-header>
-      <mat-card-title>
-        <h2>{{post.title}}</h2>
-      </mat-card-title>
-      <mat-card-subtitle>
-        <h3>{{post.author}}</h3>
-      </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p class="content">{{post.content}}</p>
-    </mat-card-content>
-    <img mat-card-image [src]="post.image" alt = "Some image should be here">
-    <mat-card-footer>
-      <p class="content">{{post.description}}</p>
-    </mat-card-footer>
-  </mat-card>-->
 </div>

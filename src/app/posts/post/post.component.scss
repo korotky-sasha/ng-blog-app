@@ -1,50 +1,77 @@
-.post {
-  width: 90%;
-  margin: 10px auto;
-  background-color: #fafafa;
-}
+$gray: #808080;
+$green: #4caf50;
+$contentColor: #353535;
+$headerBorderColor: #80808040;
+$buttonColor: #fafafa;
+$font: 'Baloo Bhai';
 
 .author {
-  color: #3ab117;
+  color: $green;
+}
+
+.by-author {
+  color: $gray;
+}
+
+.fill-available {
+  margin-left: auto;
+}
+
+.title {
+  font-family: $font, cursive;
+  font-weight: unset;
 }
 
 .content {
   font-family: Times, "Times", sans-serif;
-  color: #797e84;
-}
-
-.description {
-  font-family: Times, "Times", sans-serif;
-  color: #c9ced1;
-  padding-left: 10px;
-  border-left: 1px solid #80808040;
+  color: $contentColor;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .header {
   display: flex;
   flex-direction: row;
   margin-top: 15px;
-  border-bottom: 1px solid #80808040;
+  border-bottom: 1px solid $headerBorderColor;
 }
 
 .header-image {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-image: url("src/img/avatar.jpeg");
-  background-size: cover;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .image {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
+  width: 100%;
 }
 
 .button {
-  margin: 0 10px;
-  color: #f9f9f9;
-  background-color: #3ab117;
-  border-radius: 18px;
+  color: $gray;
+  background-color: $buttonColor;
+  border-radius: 50%;
+  padding: 0;
+  min-width: unset;
+  width: 37px;
+  margin: auto 10px;
+}
+
+.button-toggler {
+  z-index: 2;
+}
+
+.button-menu {
+  width: 0;
+  height: 60px;
+  transition: width 300ms ease-in-out;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 50px;
+  z-index: 1;
+  background-color: $buttonColor;
+  overflow: hidden;
 }

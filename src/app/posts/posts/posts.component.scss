@@ -1,64 +1,61 @@
-.post {
-  width: 90%;
-  margin: 10px auto;
-  background-color: #fafafa;
-}
-
-.title-main {
-  text-align: center;
-  color: #3ab117;
-}
-
-/*.title:hover {
-  border-left: 2px solid darkblue;
-}*/
-
-.link {
-  text-decoration: none;
-}
-
-.button {
-  color: #f9f9f9;
-  background-color: #3ab117;
-  border-radius: 18px;
-}
-
-// new section
+$primary-color: #4caf50;
+$font: 'Baloo Bhai';
+$gray: #808080;
 
 .post-preview-container {
-  width: 90%;
-  margin: 10px auto;
+  width: 50%;
+  border: 1px solid #80808040;
+  border-left: none;
+}
+
+.post-preview {
+  padding: 10px;
   display: flex;
   flex-direction: row;
+  &:hover {
+    border-left: 2px solid $primary-color;
+    cursor: pointer;
+  }
 }
 
-.post-preview-container:hover {
-  border-left: 2px solid darkblue;
+.post-preview-active {
+  border: 2px solid $primary-color;
 }
 
-.image {
+.post-preview-content {
+  width: 65%;
+}
+
+.post-content {
+  width: 50%;
+  padding-left: 25px;
+  padding-right: 10px;
+}
+
+.image-container {
+  width: 35%;
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 16px;
 }
 
+.image {
+  width: 100%;
+}
+
 .header {
-  //text-transform: uppercase;
-  color: gray;
+  color: $gray;
   font-size: small;
 }
 
 .footer {
-  color: gray;
+  color: $gray;
   font-size: small;
 }
 
 .title {
   font-size: larger;
-  font-weight: bold;
-  /*white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;*/
+  font-family: $font, cursive;
 }
 
 .multiline-truncation {
@@ -69,5 +66,10 @@
 }
 
 .author {
-  color: #3ab117;
+  color: $primary-color;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
 }

@@ -1,23 +1,32 @@
 .app-title {
-  color: #3ab117;
+  color: #4caf50;
   text-transform: uppercase;
 }
 
 .link {
   text-decoration: none;
-  color: #c9ced1;
+  color: #353535;
   padding: 10px;
+  cursor: pointer;
+  &:hover {
+    border-left: 2px solid #4caf50;
+  }
 }
 
 .link-active {
   background-color: #f9f9f9;
-  border-left: 2px solid #3ab117;
+  border-left: 2px solid #4caf50;
 }
 
-.button {
-  color: #f9f9f9;
-  background-color: #3ab117;
-  border-radius: 18px;
+.main-content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 79px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
 }
 
 .icon {
@@ -37,12 +46,17 @@
   flex: 1 1 auto;
 }
 
+.avatar-container {
+  display: flex;
+  flex-direction: row;
+  margin-right: 15px;
+  color: #c9ced1;
+}
+
 .header-image {
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
-  background-image: url("src/img/avatar.jpeg");
-  background-size: cover;
   margin-top: auto;
   margin-bottom: auto;
 }
@@ -51,9 +65,24 @@
   min-height: 64px;
   height: auto;
   background-color: #fafafa;
+  z-index: 5;
+  position: fixed;
+  top: 0;
+  box-shadow: 0 1px 3px #ddd;
+}
+
+.sidenav {
+  width: 20%;
+  min-width: fit-content;
+  margin-left: 5px;
+  border-right: 1px solid #dcdcdc;
 }
 
 .sidenav-link-group {
   display: flex;
   flex-direction: column;
+}
+
+.outlet {
+  width: 80%;
 }

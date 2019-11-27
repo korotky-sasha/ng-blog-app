@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-auth-form',
@@ -12,8 +12,8 @@ export class AuthFormComponent {
   @Output() emitFormValue = new EventEmitter<object>();
 
   authForm = this.formBuilder.group({
-    email: [''],
-    password: ['']
+    email: ['', Validators.required],
+    password: ['', Validators.required]
   });
 
   constructor(

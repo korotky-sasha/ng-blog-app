@@ -1,5 +1,4 @@
 <h2 class="title">Edit post:</h2>
 <div class="form-container">
-  <button mat-raised-button color="primary" type = 'button' (click)="cancel()" class="button-cancel">Cancel</button>
   <app-post-form [post]="post" (emitFormValue)="updatePost($event)" (emitFormChanged)="formChanged()"></app-post-form>
 </div>

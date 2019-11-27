@@ -1,22 +1,11 @@
-<h1 class="title-main">Posts:</h1>
-<button
-  mat-raised-button
-  color="primary"
-  (click)="router.navigate(['/posts/new'])"
-  *ngIf="isLogin$ | async"
-  class="button"
->
-  Create new post
-</button>
-<div style="display: flex; flex-direction: row">
-  <div style="width: 50%">
-    <div *ngFor = "let post of posts; index as i" (click)="selectPost(i)">
-
-      <div class="post-preview-container">
-        <div style = "width: 35%; margin-top: auto; margin-bottom: auto; margin-right: 16px;">
-          <img [src] = post.image alt = "Some image should be here" style="width: 100%;">
+<div class="row">
+  <div class="post-preview-container">
+    <div *ngFor = "let post of posts" (click)="selectPost(post)">
+      <div class="post-preview" [ngClass]="{'post-preview-active' : post.active}">
+        <div class="image-container">
+          <img [src] = post.image alt = "Some image should be here" (error)="invalidImage($event)" class="image">
         </div>
-        <div style="width: 65%;">
+        <div class="post-preview-content">
           <div class="header">
             By <span class = "author">{{post.author}}</span>
           </div>
@@ -30,7 +19,7 @@
       </div>
     </div>
   </div>
-  <div style="width: 50%">
-    <app-post [post]="posts[selectedPost]" (deleted)="postDeleted(selectedPost)"></app-post>
+  <div class="post-content" *ngIf="selectedPost">
+    <app-post [post]="selectedPost" (deleted)="deletePost()"></app-post>
   </div>
 </div>

@@ -7,6 +7,7 @@ import { PostsService } from '../services/posts.service';
 import { AuthService } from '../../auth/services/auth.service';
 
 import { Post } from '../../shared/models/post';
+import { IMAGE_PLACEHOLDER } from '../../shared/constants/image-placeholder.constant';
 
 @Component({
   selector: 'app-posts',
@@ -16,7 +17,7 @@ import { Post } from '../../shared/models/post';
 
 export class PostsComponent implements OnInit {
   posts: Post[];
-  selectedPost = 0;
+  selectedPost: Post;
   isLogin$: Observable<boolean>;
 
   constructor(
@@ -29,17 +30,28 @@ export class PostsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.data.subscribe( (data: {posts: Post[]}) => {
-      this.posts = data.posts;
-    });
+    const { posts = [] } = this.route.snapshot.data;
+    const firstPost = posts[0];
+    this.posts = posts;
+    if (firstPost) {
+      this.selectPost(firstPost);
+    }
   }
 
-  selectPost(index) {
-    this.selectedPost = index;
+  selectPost(post) {
+    if (this.selectedPost) {
+      this.selectedPost.active = false;
+    }
+    this.selectedPost = post;
+    this.selectedPost.active = true;
   }
 
-  postDeleted(postIndex) {
-    this.posts.splice(postIndex, 1);
-    this.selectedPost = 0;
+  deletePost() {
+    this.posts = this.posts.filter(post => post._id !== this.selectedPost._id);
+    this.selectedPost = null;
+  }
+
+  invalidImage(event) {
+    event.target.src = IMAGE_PLACEHOLDER;
   }
 }
