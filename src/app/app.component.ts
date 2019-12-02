@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
-  faCalendarAlt, faNewspaper, faSuitcaseRolling, faPlay, faHeartbeat, faGraduationCap, faBusinessTime, faLightbulb, faBars
+  faCalendarAlt, faNewspaper, faSuitcaseRolling, faPlay, faHeartbeat, faGraduationCap, faBusinessTime, faLightbulb, faBars, faSitemap
 } from '@fortawesome/free-solid-svg-icons';
 
 import { MatDialog } from '@angular/material';
@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
   faBusinessTime = faBusinessTime;
   faLightbulb = faLightbulb;
   faBars = faBars;
+  faSitemap = faSitemap;
   avatarSource = AVATAR;
 
   title = 'ng-blog-app';

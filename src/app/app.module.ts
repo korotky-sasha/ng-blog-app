@@ -11,6 +11,7 @@ import { httpInterceptorProviders } from './core/http-interceptors';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
+import { TreeViewModule } from './tree-view/tree-view.module';
 
 @NgModule({
   declarations: [
@@ -24,13 +25,14 @@ import { PostsModule } from './posts/posts.module';
     MatToolbarModule,
     MatCardModule,
     MatSidenavModule,
+    MatMenuModule,
+    MatIconModule,
     FontAwesomeModule, // Class FontAwesomeModule is not an Angular module
     AuthModule.forRoot(),
-    PostsModule,
-    AppRoutingModule,
     //
-    MatMenuModule,
-    MatIconModule
+    PostsModule,
+    TreeViewModule,
+    AppRoutingModule
   ],
   providers: [
     httpInterceptorProviders

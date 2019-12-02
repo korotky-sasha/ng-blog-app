@@ -34,10 +34,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     canDeactivate: [AuthGuard]
     },
-  {
-    path: '**',
-    redirectTo: 'posts'
-  }
 ];
 
 @NgModule({

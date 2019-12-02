@@ -1,1 +1,32 @@
-<p>tree-view works!</p>
+<!--<ul>
+  <ng-template #recursiveList let-list>
+    <li *ngFor="let item of list">
+      <ng-container *ngIf="item.children">
+        <app-branch [branch]="item"></app-branch>
+        <ul [hidden]="item.collapsed">
+          <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+        </ul>
+      </ng-container>
+    </li>
+  </ng-template>
+  <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: getTree() }"></ng-container>
+</ul>
+<app-branch [branch]="getBrunch(1)" ></app-branch>-->
+
+<span><input type="checkbox" [checked]="isCheckAll" (click)="checkAll()"></span>
+<button
+  (click)="collapseAll()"
+  (mouseover)="toggleHighlightChildrenBorder()"
+  (mouseout)="toggleHighlightChildrenBorder()"
+  class="collapse-button"
+>
+  {{isCollapseAll? '+' : '-'}}
+</button>
+<button (click)="changeSortingOrder(rootNodes)">
+  {{ascendingOrder? '^' : 'v'}}
+</button>
+<div *ngIf="!isCollapseAll" class="children" [ngClass]="{'highlight' : highlightChildrenBorder}">
+  <div *ngFor="let node of rootNodes">
+    <app-branch [node]="[node]"></app-branch>
+  </div>
+</div>
