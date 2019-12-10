@@ -14,8 +14,14 @@ import { environment } from '../../../environments/environment';
 export class BaseUrlInterceptor implements HttpInterceptor {
   constructor() {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let prefixUrl;
+    if (request.url.match(/treedata/ )) {
+      prefixUrl = environment.treeDataUrl;
+    } else {
+     prefixUrl = environment.baseUrl;
+    }
     const newRequest = request.clone({
-      url: `${environment.baseUrl}${request.url}`
+      url: `${prefixUrl}${request.url}`
     });
     return next.handle(newRequest);
   }

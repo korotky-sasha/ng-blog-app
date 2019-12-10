@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { IMAGE_PLACEHOLDER } from '../../../../shared/constants/image-placeholder.constant';
 import { Post } from '../../../../shared/models/post';

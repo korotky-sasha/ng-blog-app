@@ -1,32 +1,44 @@
-<!--<ul>
-  <ng-template #recursiveList let-list>
-    <li *ngFor="let item of list">
-      <ng-container *ngIf="item.children">
-        <app-branch [branch]="item"></app-branch>
-        <ul [hidden]="item.collapsed">
-          <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
-        </ul>
-      </ng-container>
-    </li>
-  </ng-template>
-  <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: getTree() }"></ng-container>
-</ul>
-<app-branch [branch]="getBrunch(1)" ></app-branch>-->
-
-<span><input type="checkbox" [checked]="isCheckAll" (click)="checkAll()"></span>
-<button
-  (click)="collapseAll()"
-  (mouseover)="toggleHighlightChildrenBorder()"
-  (mouseout)="toggleHighlightChildrenBorder()"
-  class="collapse-button"
->
-  {{isCollapseAll? '+' : '-'}}
-</button>
-<button (click)="changeSortingOrder(rootNodes)">
-  {{ascendingOrder? '^' : 'v'}}
-</button>
+<div class="toolbar row">
+  <div class="row" (mouseover)="toggleHighlightChildrenBorder()" (mouseout)="toggleHighlightChildrenBorder()">
+    <input type="checkbox" [checked]="isCheckAll" (click)="checkAll()" class="checkbox">
+    <button (click)="collapseAll()" class="button">
+      <fa-icon [icon]="isCollapseAll? faPlusSquare : faMinusSquare"></fa-icon>
+    </button>
+    <button (click)="changeSortingOrder(rootNodes)" class="button">
+      <fa-icon [icon]="ascendingOrder? faCaretUp : faCaretDown"></fa-icon>
+    </button>
+    <span>Root</span>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="addNode(form.value.title)" class="margin-left">
+    <input type="text" placeholder="Node title" formControlName="title">
+    <button type="submit">Add node to root</button>
+  </form>
+  <div class="row">
+    <input type="checkbox" [checked]="askPermissionToDelete" (click)="shouldAskPermissionToDelete()" class="checkbox">
+    Ask permission before delete
+  </div>
+  <div
+    *ngIf="tvs.isSelecting && !isChildren(tvs.selectedNode.id)"
+    (dragover)="dragOver($event)"
+    (dragleave)="dragLeave($event)"
+    (drop)="drop()"
+    class="dropable"
+  >
+  </div>
+</div>
 <div *ngIf="!isCollapseAll" class="children" [ngClass]="{'highlight' : highlightChildrenBorder}">
   <div *ngFor="let node of rootNodes">
-    <app-branch [node]="[node]"></app-branch>
+    <app-branch
+      [node]="node"
+      [askPermissionToDelete]="askPermissionToDelete"
+      (deleted)="removeNode($event)"
+      (unchecked)="childUnchecked()">
+    </app-branch>
   </div>
+</div>
+
+<div
+  *ngIf="tvs.isSelecting"
+  (dragover)="scrollWindowUp()"
+  class="scroller-up">
 </div>

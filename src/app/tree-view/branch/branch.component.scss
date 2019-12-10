@@ -1,6 +1,32 @@
-.collapse-button {
-  height: fit-content;
-  margin-top: auto;
+$borderGrey: #808080;
+$borderGreen: #4caf50;
+$borderBlue: #2196F3;
+
+.button {
+  margin: auto 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.button-round {
+  color: #808080;
+  background-color: #fafafa;
+  border-radius: 50%;
+  padding: 0;
+  min-width: unset;
+  width: 28px;
+}
+
+.button-menu {
+  overflow: hidden;
+  width: 0;
+  transition: width 300ms ease-in-out;
+}
+
+.checkbox {
+  display: block;
+  margin-top: 6.5px;
   margin-bottom: auto;
 }
 
@@ -9,11 +35,47 @@
   flex-direction: row;
 }
 
+.margin-left {
+  margin-left: 20px;
+}
+
+.draggable {
+  cursor: grab;
+}
+
+.dropable {
+  position: absolute;
+  left: 22%;
+  width: 75%;
+  height: 28px;
+}
+
+.dragover {
+  width: 77%;
+  border: 1px dashed $borderGreen;
+}
+
+.ghost-img {
+  opacity: 0.75;
+  position: absolute;
+  z-index: -1;
+}
+
+.parent {
+  &.moving {
+    border: 1px solid $borderBlue;
+  }
+}
+
+.title {
+
+}
+
 .children {
   margin-left: 30px;
-  border-left: 1px solid grey;
+  border-left: 1px solid $borderGrey;
 
   &.highlight {
-    border-left: 2px solid #4caf50;
+    border-left: 2px solid $borderGreen;
   }
 }

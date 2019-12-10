@@ -1,27 +1,69 @@
-<!--<div class="row">
-  <button *ngIf="branch.children.length" (click)="toggleCollapseChildren()" class="collapse-button">+</button>
-  <p>{{branch.title}}</p>
-</div>-->
-
 <ng-container *ngIf="node">
-  <div *ngFor="let item of node">
-    <span><input type="checkbox" [checked]="item.checked" (click)="item.check()"></span>
-    <button
-      *ngIf="item.children.length"
-      (click)="item.toggle()"
-      (mouseover)="item.highlight()"
-      (mouseout)="item.highlight()"
-      class="collapse-button"
-    >
-      {{item.collapsed? '+' : '-'}}
-    </button>
-    <button *ngIf="item.children.length" (click)="changeSortingOrder(item.children)">
-      {{ascendingOrder? '^' : 'v'}}
-    </button>
-    <span>{{ item.title }}</span>
-    <ng-container *ngIf="item.children.length && !item.collapsed">
-      <div class="children" [ngClass]="{'highlight' : item.highlighted}">
-        <app-branch [node]="item.children"></app-branch>
+  <div>
+    <div class="row parent" (mouseover)="childrenHighlight = true;" (mouseout)="childrenHighlight = false;">
+      <input type="checkbox" [checked]="node.checked" (click)="nodeUnchecked()" class="checkbox">
+      <ng-container *ngIf="node.children.length">
+        <button (click)="node.toggle()" class="button">
+          <fa-icon [icon]="node.collapsed? faPlusSquare : faMinusSquare"></fa-icon>
+        </button>
+        <button (click)="changeSortingOrder()" class="button">
+          <fa-icon [icon]="node.ascendingOrder? faCaretUp : faCaretDown"></fa-icon>
+        </button>
+      </ng-container>
+      <span class="title">{{ node.title }}</span>
+      <button (click)="expandControls($event)" class="margin-left button-round button-expand">
+        <fa-icon [icon]="faEllipsisV"></fa-icon>
+      </button>
+      <div class="row button-menu">
+        <button (click)="confirmDeleteNode()" class="margin-left button-round">
+          <fa-icon [icon]="faTrash"></fa-icon>
+        </button>
+        <button (click)="expandAddChildMenu()" class="margin-left button-round">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+        <div *ngIf="addChildMenuExpanded" class="row margin-left">
+          <form [formGroup]="formAddChild" (ngSubmit)="addNode(formAddChild.value.title)">
+            <input type="text" placeholder="Node title" formControlName="title">
+            <button type="submit">Add child node</button>
+          </form>
+        </div>
+        <button (click)="expandEditNodeMenu()" class="margin-left button-round">
+          <fa-icon [icon]="faEdit"></fa-icon>
+        </button>
+        <div *ngIf="editNodeMenuExpanded" class="row margin-left">
+          <form [formGroup]="formEditNode" (ngSubmit)="editNode(formEditNode.value.title)">
+            <input type="text" placeholder="Node title" formControlName="title">
+            <button type="submit">Change node title</button>
+          </form>
+        </div>
+      </div>
+      <button
+        (dragstart)="dragStart($event)"
+        (dragend)="dragEnd()"
+        class="margin-left draggable button-round"
+        draggable="true">
+        <fa-icon [icon]="faHandPaper"></fa-icon>
+      </button>
+      <div
+        *ngIf="showDropZone()"
+        (dragover)="dragOver($event)"
+        (dragleave)="dragLeave($event)"
+        (drop)="drop()"
+        class="dropable"
+      >
+      </div>
+    </div>
+    <ng-container *ngIf="node.children.length && !node.collapsed">
+      <div class="children" [ngClass]="{'highlight' : childrenHighlight}">
+        <div *ngFor="let childNode of node.children">
+          <app-branch
+            [node]="childNode"
+            [parentId]="node.id"
+            [askPermissionToDelete]="askPermissionToDelete"
+            (deleted)="removeChildNode($event)"
+            (unchecked)="childUnchecked()">
+          </app-branch>
+        </div>
       </div>
     </ng-container>
   </div>

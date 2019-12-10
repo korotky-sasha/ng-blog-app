@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faMinusSquare} from '@fortawesome/free-regular-svg-icons';
 
 import { OrganizationTree, Node } from '../mock-tree';
 
-interface Branch {
-  id: number;
-  title: string;
-  children: Branch[];
-  collapsed: boolean;
-}
+import { TreeViewService } from '../services/tree-view.service';
 
 interface ModifiedData {
   node: Node;
@@ -20,29 +22,39 @@ interface ModifiedData {
   templateUrl: './tree-view.component.html',
   styleUrls: ['./tree-view.component.scss']
 })
-export class TreeViewComponent implements OnInit {
-  /*transformedData = [];
-  private originalData = this.tree.data;*/
+export class TreeViewComponent implements OnInit, OnDestroy {
+  faCaretUp = faCaretUp;
+  faCaretDown = faCaretDown;
+  faMinusSquare = faMinusSquare;
+  faPlusSquare = faPlusSquare;
+
   nodes: Array<ModifiedData> = [];
   rootNodes;
   isCollapseAll = false;
   isCheckAll = false;
+  form: FormGroup;
   highlightChildrenBorder = false;
   ascendingOrder = true;
+  askPermissionToDelete = true;
 
-  // data = this.tree.transformedData;
+  ngUnsubscribe: Subject<void>;
 
   constructor(
-    private tree: OrganizationTree
-  ) { }
+    private formBuilder: FormBuilder,
+    private tree: OrganizationTree,
+    private tvs: TreeViewService
+  ) {
+    this.ngUnsubscribe = new Subject();
+  }
 
   ngOnInit() {
-    /*this.buildTree();
-    console.log(this.getTree());*/
+    this.buildForm();
     this.buildNodes();
-    this.rootNodes = this.getRootNodes();
-    this.sortNode(this.rootNodes);
-    console.log(this.rootNodes);
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   sortNode(arr: Array<Node>) {
@@ -63,6 +75,10 @@ export class TreeViewComponent implements OnInit {
     });
   }
 
+  childUnchecked() {
+    this.isCheckAll = false;
+  }
+
   collapseAll() {
     this.isCollapseAll = !this.isCollapseAll;
   }
@@ -71,17 +87,27 @@ export class TreeViewComponent implements OnInit {
     this.highlightChildrenBorder = !this.highlightChildrenBorder;
   }
 
+  shouldAskPermissionToDelete() {
+    this.askPermissionToDelete = !this.askPermissionToDelete;
+  }
+
   buildNodes() {
-    this.tree.data.forEach( (item) => {
-      this.nodes.push({node: new Node(item.id, item.title, []), parent: item.parent});
-    });
-    this.nodes.forEach(item => {
-      if (item.parent) {
-        const parentBranch = this.nodes.find(value => {
-          return value.node.id === item.parent;
-        });
-        parentBranch.node.children.push(item.node);
-      }
+    this.tvs.getTree()
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe( tree => {
+      this.nodes = tree.map( item => {
+        return  {node: new Node(item.id, item.title, []), parent: item.parent};
+      });
+      this.nodes.forEach(item => {
+        if (item.parent) {
+          const parentBranch = this.nodes.find(value => value.node.id === item.parent);
+          parentBranch.node.children.push(item.node);
+        }
+      });
+      this.rootNodes = this.getRootNodes();
+      this.sortNode(this.rootNodes);
     });
   }
 
@@ -95,47 +121,60 @@ export class TreeViewComponent implements OnInit {
     return rootNodes;
   }
 
-  /*getTree(): Branch[] {
-    const finalTree = [];
-    this.originalData.forEach( (item) => {
-      if (!item.parent) {
-        finalTree.push(this.getBrunch(item.id));
-      }
-    } );
-    return finalTree;
+  private buildForm(): void {
+    this.form = this.formBuilder.group({
+      title: ['', Validators.required]
+    });
   }
 
-  getBrunch(id): Branch {
-    const rawBranch = this.transformedData.find(value => {
+  addNode(value) {
+    const node = {title: value};
+    this.tvs.addNode(node)
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe();
+    this.buildNodes();
+  }
+
+  addNodeFromSection() {
+    const newChildren = this.tvs.selectedNode;
+    this.rootNodes.push(newChildren);
+    this.sortNode(this.rootNodes);
+    this.isCheckAll = false;
+  }
+
+  removeNode(id) {
+    this.rootNodes.find( (item: Node, index, array) => {
+      if (item.id === id) {
+        array.splice(index, 1);
+      }
+      return item.id === id;
+    });
+  }
+
+  drop() {
+    this.addNodeFromSection();
+    this.tvs.selectTargetNode();
+  }
+
+  dragOver(event) {
+    event.preventDefault();
+    event.target.classList.add('dragover');
+    event.dataTransfer.dropEffect = 'move';
+  }
+
+  dragLeave(event) {
+    event.target.classList.remove('dragover');
+  }
+
+  isChildren(id): boolean {
+    return this.rootNodes.find((value) => {
       return value.id === id;
     });
-    if (rawBranch) {
-      const branch = { id: rawBranch.id, title: rawBranch.title, children: [], collapsed: false };
-      if (rawBranch && rawBranch.children) {
-        rawBranch.children.forEach( item => {
-          branch.children.push(this.getBrunch(item));
-        });
-      }
-      return branch;
-    }
   }
 
-  buildTree() {
-    this.tree.data.forEach( item => {
-      this.transformedData.push(this.transformBrunch(item));
-    });
-    this.transformedData.forEach( item => {
-      if (item.parent) {
-        const parentBranch = this.transformedData.find( value => {
-            return value.id === item.parent;
-        });
-        parentBranch.children.push(item.id);
-      }
-    });
+  scrollWindowUp() {
+    window.scrollBy(0, -20 );
   }
-
-  transformBrunch(rawBranch) {
-    return {...rawBranch, ...{children: [], collapsed: false}};
-    // return {id: rawBranch.id, title: rawBranch.title, parent: rawBranch.parent, children: [], collapsed: false};
-  }*/
 }

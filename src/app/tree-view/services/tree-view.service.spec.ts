@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BranchFactoryService } from './branch-factory.service';
+import { TreeViewService } from './tree-view.service';
 
 describe('BranchFactoryService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: BranchFactoryService = TestBed.get(BranchFactoryService);
+    const service: TreeViewService = TestBed.get(TreeViewService);
     expect(service).toBeTruthy();
   });
 });

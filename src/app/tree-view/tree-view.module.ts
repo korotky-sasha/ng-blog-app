@@ -1,18 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { TreeViewComponent } from './tree-view/tree-view.component';
 
 import { TreeViewRoutingModule } from './tree-view-routing.module';
 import { BranchComponent } from './branch/branch.component';
-import { NodeHostDirective } from './tree-view/directives/node-host.directive';
 
 
 @NgModule({
-  declarations: [TreeViewComponent, BranchComponent, NodeHostDirective],
+  declarations: [TreeViewComponent, BranchComponent],
   imports: [
     CommonModule,
+    FormsModule,
+    FontAwesomeModule,
     TreeViewRoutingModule,
+    ReactiveFormsModule,
+    DragDropModule
   ],
-  // entryComponents: [BranchComponent]
 })
 export class TreeViewModule { }
