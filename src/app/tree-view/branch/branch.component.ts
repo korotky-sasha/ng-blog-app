@@ -225,8 +225,8 @@ export class BranchComponent implements OnInit, OnDestroy {
     });
     this.buttonMenuRef = button.nextSibling;
     if (!this.controlsExpanded) {
-      // button.nextSibling.style.width = '144px';
-      button.nextSibling.style.width = 'fit-content';
+      button.nextSibling.style.width = '144px';
+      // button.nextSibling.style.width = 'fit-content';
     } else {
       button.nextSibling.style.width = '0';
     }
@@ -236,25 +236,25 @@ export class BranchComponent implements OnInit, OnDestroy {
   }
 
   expandAddChildMenu() {
-    /*if (!this.addChildMenuExpanded) {
-      // this.buttonMenuRef.style.width = '423px';
-      this.buttonMenuRef.style.width = 'fit-content';
+    if (!this.addChildMenuExpanded) {
+      this.buttonMenuRef.style.width = '423px';
+      // this.buttonMenuRef.style.width = 'fit-content';
     } else {
-      // this.buttonMenuRef.style.width = '144px';
-      this.buttonMenuRef.style.width = 'fit-content';
-    }*/
+      this.buttonMenuRef.style.width = '144px';
+      // this.buttonMenuRef.style.width = 'fit-content';
+    }
     this.addChildMenuExpanded = ! this.addChildMenuExpanded;
     this.editNodeMenuExpanded = false;
   }
 
   expandEditNodeMenu() {
-    /*if (!this.editNodeMenuExpanded) {
-      // this.buttonMenuRef.style.width = '439px';
-      this.buttonMenuRef.style.width = 'fit-content';
+    if (!this.editNodeMenuExpanded) {
+      this.buttonMenuRef.style.width = '439px';
+      // this.buttonMenuRef.style.width = 'fit-content';
     } else {
-      // this.buttonMenuRef.style.width = '144px';
-      this.buttonMenuRef.style.width = 'fit-content';
-    }*/
+      this.buttonMenuRef.style.width = '144px';
+      // this.buttonMenuRef.style.width = 'fit-content';
+    }
     this.editNodeMenuExpanded = !this.editNodeMenuExpanded;
     this.addChildMenuExpanded = false;
   }
@@ -302,9 +302,7 @@ export class BranchComponent implements OnInit, OnDestroy {
   }
 
   dragEnd() {
-    if (!this.tvs.selectedNode) {
-      this.tvs.stopSelecting();
-    }
+    this.tvs.stopSelecting();
     this.parentRowRef.classList.remove('moving');
   }
 

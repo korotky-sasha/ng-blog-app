@@ -177,4 +177,8 @@ export class TreeViewComponent implements OnInit, OnDestroy {
   scrollWindowUp() {
     window.scrollBy(0, -20 );
   }
+
+  scrollWindowDown() {
+    window.scrollBy(0, 20 );
+  }
 }

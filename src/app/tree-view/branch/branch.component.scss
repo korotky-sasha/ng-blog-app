@@ -62,6 +62,7 @@ $borderBlue: #2196F3;
 }
 
 .parent {
+  width: max-content;
   &.moving {
     border: 1px solid $borderBlue;
   }

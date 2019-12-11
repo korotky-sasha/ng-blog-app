@@ -42,3 +42,8 @@
   (dragover)="scrollWindowUp()"
   class="scroller-up">
 </div>
+<div
+  *ngIf="tvs.isSelecting"
+  (dragover)="scrollWindowDown()"
+  class="scroller-down">
+</div>

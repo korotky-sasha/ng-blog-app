@@ -4,7 +4,7 @@ $borderGreen: #4caf50;
 
 .toolbar {
   z-index: 2;
-  position: sticky;
+  position: fixed;
   top: 64px;
   padding-top: 15px;
   background: $background;
@@ -54,17 +54,18 @@ $borderGreen: #4caf50;
 
 .scroller-up {
   z-index: 5;
+  position: fixed;
   top: 0;
   opacity: 0;
   width: 100%;
   height: 64px;
-  position: fixed;
-  //background: aliceblue;
 }
 
 .scroller-down {
-  width: 100%;
-  background: aliceblue;
+  z-index: 5;
   position: fixed;
   bottom: 0;
+  opacity: 0;
+  width: 100%;
+  height: 20px;
 }
