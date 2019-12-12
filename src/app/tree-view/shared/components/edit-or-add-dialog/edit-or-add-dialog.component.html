@@ -1,0 +1,14 @@
+<div mat-dialog-content>
+  <p *ngIf="data && data.message">{{data.message}}</p>
+  <p *ngIf="!data || !data.message">A you sure?</p>
+</div>
+<div *ngIf="data">
+  <form *ngIf="!data.title" [formGroup]="formAddChild" (ngSubmit)="sendResult(formAddChild.value.title)" class="row add-child-form">
+    <input type="text" placeholder="Node title" formControlName="title">
+    <button mat-button type="submit">Add child node</button>
+  </form>
+  <form *ngIf="data.title" [formGroup]="formEditNode" (ngSubmit)="sendResult(formEditNode.value.title)" class="row add-child-form">
+    <input type="text" placeholder="Node title" formControlName="title">
+    <button mat-button type="submit">Ok</button>
+  </form>
+</div>

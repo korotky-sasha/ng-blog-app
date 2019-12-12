@@ -7,6 +7,7 @@ $borderGreen: #4caf50;
   position: fixed;
   top: 64px;
   padding-top: 15px;
+  width: 100%;
   background: $background;
 }
 
@@ -44,6 +45,7 @@ $borderGreen: #4caf50;
 
 .children {
   margin-left: 30px;
+  margin-bottom: 20px;
   border-left: 1px solid $borderGrey;
   width: fit-content;
 

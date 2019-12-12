@@ -20,6 +20,7 @@ import { TreeViewService } from '../services/tree-view.service';
 
 import { Node } from '../mock-tree';
 import { ConfirmDialogComponent } from '../../posts/confirm-dialog/confirm-dialog.component';
+import { EditOrAddDialogComponent } from '../shared/components/edit-or-add-dialog/edit-or-add-dialog.component';
 
 
 @Component({
@@ -220,43 +221,16 @@ export class BranchComponent implements OnInit, OnDestroy {
   }
 
   expandControls(event) {
-    const button = event.path.find( (value) => {
+    const wrapper = event.path.find( (value) => {
       return value.classList.contains('button-expand');
-    });
-    this.buttonMenuRef = button.nextSibling;
+    }).nextSibling;
+    this.buttonMenuRef = wrapper;
     if (!this.controlsExpanded) {
-      button.nextSibling.style.width = '144px';
-      // button.nextSibling.style.width = 'fit-content';
+     wrapper.style.width = wrapper.firstElementChild.clientWidth + 'px';
     } else {
-      button.nextSibling.style.width = '0';
+      wrapper.style.width = '0';
     }
-    this.editNodeMenuExpanded = false;
-    this.addChildMenuExpanded = false;
     this.controlsExpanded = ! this.controlsExpanded;
-  }
-
-  expandAddChildMenu() {
-    if (!this.addChildMenuExpanded) {
-      this.buttonMenuRef.style.width = '423px';
-      // this.buttonMenuRef.style.width = 'fit-content';
-    } else {
-      this.buttonMenuRef.style.width = '144px';
-      // this.buttonMenuRef.style.width = 'fit-content';
-    }
-    this.addChildMenuExpanded = ! this.addChildMenuExpanded;
-    this.editNodeMenuExpanded = false;
-  }
-
-  expandEditNodeMenu() {
-    if (!this.editNodeMenuExpanded) {
-      this.buttonMenuRef.style.width = '439px';
-      // this.buttonMenuRef.style.width = 'fit-content';
-    } else {
-      this.buttonMenuRef.style.width = '144px';
-      // this.buttonMenuRef.style.width = 'fit-content';
-    }
-    this.editNodeMenuExpanded = !this.editNodeMenuExpanded;
-    this.addChildMenuExpanded = false;
   }
 
   nodeUnchecked() {
@@ -276,6 +250,27 @@ export class BranchComponent implements OnInit, OnDestroy {
       data: {message}
     });
     return  dialogRef.afterClosed();
+  }
+
+  addOrEditDialog(message?: string, title?: string): Observable<string> {
+    const dialogRef = this.dialog.open(EditOrAddDialogComponent, {
+      data: { message, title }
+    });
+    return  dialogRef.afterClosed();
+  }
+
+  tryEditNode() {
+    this.addOrEditDialog('Enter new title:', this.node.title).subscribe( (value) => {
+      if (value) {
+        this.editNode(value);
+      }
+    });
+  }
+
+  tryAddNode() {
+    this.addOrEditDialog('Enter child title:').subscribe( (value) => {
+      this.addNode(value);
+    });
   }
 
   dragStart(event) {

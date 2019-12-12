@@ -14,14 +14,19 @@ $borderBlue: #2196F3;
   background-color: #fafafa;
   border-radius: 50%;
   padding: 0;
-  min-width: unset;
+  min-width: 28px;
   width: 28px;
+  height: 28px;
 }
 
 .button-menu {
-  overflow: hidden;
+  width: max-content;
+}
+
+.wrapper {
   width: 0;
-  transition: width 300ms ease-in-out;
+  transition: width 300ms ease;
+  overflow: hidden;
 }
 
 .checkbox {
@@ -66,10 +71,6 @@ $borderBlue: #2196F3;
   &.moving {
     border: 1px solid $borderBlue;
   }
-}
-
-.title {
-
 }
 
 .children {

@@ -46,7 +46,6 @@ export class TreeViewService {
 
   stopSelecting() {
     this.isSelecting = false;
-    console.log('stop selecting');
     this.targetNode$.next(NaN);
   }
 
