@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
@@ -15,7 +15,7 @@ export class EditOrAddDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EditOrAddDialogComponent>,
     private formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: {message: string, title: string}
+    @Inject(MAT_DIALOG_DATA) public data: { message: string, title: string }
   ) { }
 
   ngOnInit() {
@@ -27,11 +27,15 @@ export class EditOrAddDialogComponent implements OnInit {
       title: ['', Validators.required]
     });
     this.formEditNode = this.formBuilder.group({
-      title: [ this.data.title, Validators.required]
+      title: [ this.data.title, Validators.required ]
     });
   }
 
   sendResult(title) {
     this.dialogRef.close(title);
+  }
+
+  cancel() {
+    this.dialogRef.close(null);
   }
 }

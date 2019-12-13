@@ -3,12 +3,18 @@
   <p *ngIf="!data || !data.message">A you sure?</p>
 </div>
 <div *ngIf="data">
-  <form *ngIf="!data.title" [formGroup]="formAddChild" (ngSubmit)="sendResult(formAddChild.value.title)" class="row add-child-form">
+  <form *ngIf="!data.title" [formGroup]="formAddChild" (ngSubmit)="sendResult(formAddChild.value.title)" class="column">
     <input type="text" placeholder="Node title" formControlName="title">
-    <button mat-button type="submit">Add child node</button>
+    <div class="row margin-top">
+      <button mat-button type="submit">Add child node</button>
+      <button mat-button (click)="cancel()">Cancel</button>
+    </div>
   </form>
-  <form *ngIf="data.title" [formGroup]="formEditNode" (ngSubmit)="sendResult(formEditNode.value.title)" class="row add-child-form">
+  <form *ngIf="data.title" [formGroup]="formEditNode" (ngSubmit)="sendResult(formEditNode.value.title)" class="column">
     <input type="text" placeholder="Node title" formControlName="title">
-    <button mat-button type="submit">Ok</button>
+    <div class="row margin-top">
+      <button mat-button type="submit">Ok</button>
+      <button mat-button type="button" (click)="cancel()">Cancel</button>
+    </div>
   </form>
 </div>

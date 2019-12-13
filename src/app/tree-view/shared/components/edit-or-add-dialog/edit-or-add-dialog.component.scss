@@ -4,11 +4,16 @@
   margin-right: auto;
 }
 
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
 .row {
   display: flex;
   flex-direction: row;
 }
 
-.add-child-form {
-  height: 28px;
+.margin-top {
+  margin-top: 10px;
 }

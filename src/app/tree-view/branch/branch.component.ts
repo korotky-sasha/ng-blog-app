@@ -1,8 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Observable, Subject } from 'rxjs';
-import { take, takeUntil} from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 
 import {
@@ -41,14 +40,9 @@ export class BranchComponent implements OnInit, OnDestroy {
 
   childrenHighlight = false;
   controlsExpanded = false;
-  addChildMenuExpanded = false;
-  editNodeMenuExpanded = false;
 
   parentRowRef: HTMLElement;
   buttonMenuRef: HTMLElement;
-
-  formAddChild: FormGroup;
-  formEditNode: FormGroup;
 
   ngUnsubscribe: Subject<void>;
   shouldDelete$: Observable<boolean>;
@@ -63,14 +57,12 @@ export class BranchComponent implements OnInit, OnDestroy {
 
   constructor(
     private tvs: TreeViewService,
-    private formBuilder: FormBuilder,
     private dialog: MatDialog,
   ) {
     this.ngUnsubscribe = new Subject();
   }
 
   ngOnInit(): void {
-    this.buildForms();
     this.sortNode();
     this.deleteChecker();
   }
@@ -151,7 +143,6 @@ export class BranchComponent implements OnInit, OnDestroy {
   }
 
   addNodeFromSelection() {
-    // this.tvs.selectTargetNode(this.node.id);
     const newChildren = this.tvs.selectedNode;
     this.node.children.push(newChildren);
     this.sortNode();
@@ -195,15 +186,6 @@ export class BranchComponent implements OnInit, OnDestroy {
       .subscribe( () => {
         this.deleted.emit(this.node.id);
       });
-  }
-
-  private buildForms(): void {
-    this.formAddChild = this.formBuilder.group({
-      title: ['', Validators.required]
-    });
-    this.formEditNode = this.formBuilder.group({
-      title: [ this.node.title, Validators.required]
-    });
   }
 
   sortNode() {
@@ -269,7 +251,9 @@ export class BranchComponent implements OnInit, OnDestroy {
 
   tryAddNode() {
     this.addOrEditDialog('Enter child title:').subscribe( (value) => {
-      this.addNode(value);
+      if (value) {
+        this.addNode(value);
+      }
     });
   }
 
